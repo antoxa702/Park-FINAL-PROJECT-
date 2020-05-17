@@ -1,0 +1,121 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">	
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>by.etc.tolstoy</groupId>
+  <artifactId>Park</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>Park</name>
+  <url>http://maven.apache.org</url>
+  <description>Park System</description>
+  
+  <properties>
+	
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>	
+		<java.version>1.8</java.version>
+			
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<maven-war-plugin.version>3.2.1</maven-war-plugin.version>
+		
+		<javax.servlet.jsp.jstl.version>1.2.1</javax.servlet.jsp.jstl.version>
+		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>	
+		<mysql-connector-java.version>8.0.19</mysql-connector-java.version>
+		<json.version>20190722</json.version>
+		<bootstrap.version>4.1.1</bootstrap.version>
+			
+		<junit.version>4.12</junit.version>
+		<log4j-api.version>2.13.0</log4j-api.version>
+		<log4j-core.version>2.13.0</log4j-core.version>
+		
+  </properties>  
+  
+  <build>
+    <plugins>
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>${maven-war-plugin.version}</version>
+      </plugin>
+    </plugins>
+    
+    <resources>
+    	<resource>
+       		<directory>E:/Workspace/Park/src/main/resources</directory>
+    	</resource>
+    </resources>
+    
+  	<testResources>
+      		<testResource>
+       			<directory>E:/Workspace/Park/src/test/resources</directory>
+     		</testResource>
+    </testResources>
+    
+  </build>
+  
+  <dependencies> 		
+		
+		 <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>                
+		
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.servlet.jsp.jstl</artifactId>
+			<version>${javax.servlet.jsp.jstl.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-java.version}</version>
+		</dependency>		
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>${json.version}</version>
+		</dependency>
+		
+			<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>${bootstrap.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j-api.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j-core.version}</version>
+			<scope>compile</scope>
+		</dependency>
+  
+  </dependencies>
+</project>
