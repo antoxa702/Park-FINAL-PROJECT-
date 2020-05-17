@@ -7,6 +7,7 @@ import static util.StaticValues.DB_PROPERTIES_FILE_NAME;
 import static util.StaticValues.DB_URL_NAME;
 import static util.StaticValues.DB_USER_NAME;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
@@ -25,8 +26,8 @@ public enum ConnectionPool {
 	private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);	
 	private final ResourceBundle resource = ResourceBundle.getBundle(DB_PROPERTIES_FILE_NAME);
 		
-	private BlockingQueue<ProxyConnection> avaliableConnectionList;
-	private Queue<ProxyConnection> blockedConnectionList;
+	private BlockingQueue<ProxyConnection> avaliableConnectionQueue;
+	private Queue<ProxyConnection> blockedConnectionQueue;
 	
 	/**
 	 * Guarantees, that when you first mind ConnectionPool.INSTANCE
@@ -39,11 +40,35 @@ public enum ConnectionPool {
 		initPool();
 	}
 	
-	//TODO getConnection()
+	//TODO ??? getConnection()
+	
 	//TODO releaseConnection()
+	
 	//TODO closeConnection()
+	
 	//TODO closePool()
-	//TODO create a git repository, link it with github
+	
+	//TODO check methods for threads
+	
+	//TODO link git with github
+	
+	
+	public Connection getConnection() {
+		if (avaliableConnectionQueue.size() > 0) {
+			ProxyConnection proxyConnection;
+			try {
+				
+				
+				proxyConnection = avaliableConnectionQueue.take();
+				blockedConnectionQueue.add(proxyConnection);	
+				return proxyConnection.getConnection();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}	
+		return null;
+	}
 	
 	public void releaseConnection (ProxyConnection proxyConnection) throws SQLException {
 		
@@ -56,22 +81,22 @@ public enum ConnectionPool {
 	 */
 	private void initPool() {
 		initDriver();
-		initAvaliableConnectionList();
-		initBlockedConnectionList();		
+		initAvaliableConnectionQueue();
+		initBlockedConnectionQueue();		
 	}
 	
 	/**
 	 * initializingblockedConnectionList
 	 */
-	private void initBlockedConnectionList() {
-		blockedConnectionList = new ArrayDeque<>();		
+	private void initBlockedConnectionQueue() {
+		blockedConnectionQueue = new ArrayDeque<>();		
 	}
 	
 	/**
 	 * initializing and filling avaliableConnectionList with connections to database
 	 */
-	private void initAvaliableConnectionList() {		
-		avaliableConnectionList = new LinkedBlockingQueue<>();
+	private void initAvaliableConnectionQueue() {		
+		avaliableConnectionQueue = new LinkedBlockingQueue<>();
 		
 		int poolCapacity = Integer.parseInt(resource.getString(DB_POOLSIZE_NAME));
 		String dbUrl = resource.getString(DB_URL_NAME);
@@ -80,7 +105,7 @@ public enum ConnectionPool {
 		
 		for (int i = 0; i < poolCapacity; i++) {
 			try {
-				avaliableConnectionList.add(new ProxyConnection(DriverManager.getConnection(dbUrl, user, password)));
+				avaliableConnectionQueue.add(new ProxyConnection(DriverManager.getConnection(dbUrl, user, password)));
 			} catch (SQLException e) {				
 				LOGGER.warn("connection haven't been added");				
 			}

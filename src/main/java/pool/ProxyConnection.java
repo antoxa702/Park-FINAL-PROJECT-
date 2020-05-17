@@ -28,9 +28,29 @@ public class ProxyConnection implements Connection {
 	
 	private Connection connection;		
 
-	//TODO visible only at this package	
-	public ProxyConnection(Connection connection) {	
+	/**
+	 * Visibility only in this package, to use in ConnectionPool
+	 * @param connection
+	 */
+	protected ProxyConnection(Connection connection) {	
 		this.connection = connection;
+	}
+	
+	public void closeInPool() throws SQLException {
+		connection.close();
+	}
+	
+	protected Connection getConnection() {
+		return connection;
+	}
+	
+	@Override
+	public void close(){
+		try {
+			ConnectionPool.INSTANCE.releaseConnection(this);
+		} catch (SQLException e) {
+			LOGGER.warn("can't close connection");
+		}		
 	}
 
 	@Override
@@ -42,20 +62,6 @@ public class ProxyConnection implements Connection {
 	public void clearWarnings() throws SQLException {
 		connection.clearWarnings();		
 	}
-
-	@Override
-	public void close(){
-		try {
-			ConnectionPool.INSTANCE.releaseConnection(this);
-		} catch (SQLException e) {
-			LOGGER.warn("can't close connection");
-		}		
-	}
-	
-	public void closeInPool() throws SQLException {
-		connection.close();
-	}
-
 	
 	@Override
 	public void commit() throws SQLException {
