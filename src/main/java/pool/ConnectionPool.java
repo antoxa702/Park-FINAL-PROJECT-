@@ -28,7 +28,7 @@ public enum ConnectionPool {
 	private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);	
 	private final ResourceBundle resource = ResourceBundle.getBundle(DB_PROPERTIES_FILE_NAME);
 		
-	private BlockingQueue<ProxyConnection> avaliableConnectionQueue;
+	private BlockingQueue<ProxyConnection> availableConnectionQueue;
 	private Queue<ProxyConnection> blockedConnectionQueue;
 	
 	/**
@@ -51,7 +51,7 @@ public enum ConnectionPool {
 	public Connection getConnection() throws ConnectionPoolException{		
 		ProxyConnection proxyConnection;
 		try {						
-			proxyConnection = avaliableConnectionQueue.take();
+			proxyConnection = availableConnectionQueue.take();
 			blockedConnectionQueue.add(proxyConnection);	
 			return proxyConnection.getConnection();
 		} catch (InterruptedException e) {
@@ -67,10 +67,15 @@ public enum ConnectionPool {
 	 * @throws ConnectionPoolException
 	 */	
 	public void releaseConnection (ProxyConnection proxyConnection) throws ConnectionPoolException{
+		if (proxyConnection == null) {
+			LOGGER.error("Error : proxyConnection is null");
+			throw new ConnectionPoolException("Error : passed parameter 'proxyConnection' is null");
+		}
+		
 		if (blockedConnectionQueue.remove(proxyConnection)) {
-			avaliableConnectionQueue.add(proxyConnection);
+			availableConnectionQueue.add(proxyConnection);
 		} else {
-			LOGGER.error("there is  no such proxyConnection object in blockedConnectionQueue");
+			LOGGER.error("Error : there is  no such proxyConnection object in blockedConnectionQueue");
 			throw new ConnectionPoolException("Error with removing connection from blockedConnectionQueue");
 		}		
 	}	
@@ -83,7 +88,7 @@ public enum ConnectionPool {
 			closeAvailableConnections();
 			closeBlockedConnections();
 		} catch (SQLException e) {
-			LOGGER.error("Error closing connections");			
+			LOGGER.error("Error during closing connections");			
 		}				
 	}
 		
@@ -91,7 +96,7 @@ public enum ConnectionPool {
 	 * Closes all available connections in ConnectionPool (for external situations) 
 	 */	
 	private void closeAvailableConnections() throws SQLException {
-		for(ProxyConnection proxyConnection : avaliableConnectionQueue) {
+		for(ProxyConnection proxyConnection : availableConnectionQueue) {
 			proxyConnection.close();			
 		}		
 	}
@@ -127,7 +132,7 @@ public enum ConnectionPool {
 	 * initializing and filling avaliableConnectionList with connections to database
 	 */
 	private void initAvaliableConnectionQueue() {		
-		avaliableConnectionQueue = new LinkedBlockingQueue<>();
+		availableConnectionQueue = new LinkedBlockingQueue<>();
 		
 		int poolCapacity = Integer.parseInt(resource.getString(DB_POOLSIZE_NAME));
 		String dbUrl = resource.getString(DB_URL_NAME);
@@ -136,9 +141,9 @@ public enum ConnectionPool {
 		
 		for (int i = 0; i < poolCapacity; i++) {
 			try {
-				avaliableConnectionQueue.add(new ProxyConnection(DriverManager.getConnection(dbUrl, user, password)));
+				availableConnectionQueue.add(new ProxyConnection(DriverManager.getConnection(dbUrl, user, password)));
 			} catch (SQLException e) {				
-				LOGGER.warn("connection haven't been added");				
+				LOGGER.warn("Warn : connection haven't been added");				
 			}
 		}		
 	}
