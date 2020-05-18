@@ -19,6 +19,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import exception.ConnectionPoolException;
+
 public enum ConnectionPool {
 	
 	INSTANCE;
@@ -38,40 +40,69 @@ public enum ConnectionPool {
 	 */	
 	private ConnectionPool(){
 		initPool();
+	}	
+	
+	/**
+	 * Returns connection from proxyConnection if there are some available connections
+	 * or waiting, while any available appears and then get it.
+	 * @return connection
+	 * @throws ConnectionPoolException
+	 */	
+	public Connection getConnection() throws ConnectionPoolException{		
+		ProxyConnection proxyConnection;
+		try {						
+			proxyConnection = avaliableConnectionQueue.take();
+			blockedConnectionQueue.add(proxyConnection);	
+			return proxyConnection.getConnection();
+		} catch (InterruptedException e) {
+			LOGGER.error("Can't recieve connection from avaliableConnectionQueue");
+			throw new ConnectionPoolException("Error during getting connection");
+		}				
 	}
 	
-	//TODO ??? getConnection()
+	/**
+	 * Removes proxyConnection from blockedConnectionQueue
+	 * and returns it into avaliableConnectionQueue
+	 * @param proxyConnection
+	 * @throws ConnectionPoolException
+	 */	
+	public void releaseConnection (ProxyConnection proxyConnection) throws ConnectionPoolException{
+		if (blockedConnectionQueue.remove(proxyConnection)) {
+			avaliableConnectionQueue.add(proxyConnection);
+		} else {
+			LOGGER.error("there is  no such proxyConnection object in blockedConnectionQueue");
+			throw new ConnectionPoolException("Error with removing connection from blockedConnectionQueue");
+		}		
+	}	
 	
-	//TODO releaseConnection()
-	
-	//TODO closeConnection()
-	
-	//TODO closePool()
-	
-	//TODO check methods for threads
-	
-	//TODO link git with github
-	
-	
-	public Connection getConnection() {
-		if (avaliableConnectionQueue.size() > 0) {
-			ProxyConnection proxyConnection;
-			try {
-				
-				
-				proxyConnection = avaliableConnectionQueue.take();
-				blockedConnectionQueue.add(proxyConnection);	
-				return proxyConnection.getConnection();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
-		}	
-		return null;
+	/**
+	 * Closes all connections in ConnectionPool (for external situations) 
+	 */	
+	public synchronized void closeAllConnectionsInPool() {
+		try {
+			closeAvailableConnections();
+			closeBlockedConnections();
+		} catch (SQLException e) {
+			LOGGER.error("Error closing connections");			
+		}				
 	}
-	
-	public void releaseConnection (ProxyConnection proxyConnection) throws SQLException {
 		
+	/**
+	 * Closes all available connections in ConnectionPool (for external situations) 
+	 */	
+	private void closeAvailableConnections() throws SQLException {
+		for(ProxyConnection proxyConnection : avaliableConnectionQueue) {
+			proxyConnection.close();			
+		}		
+	}
+	
+	/**
+	 * Closes all blocked connections in ConnectionPool (for external situations) 
+	 */	
+	private void closeBlockedConnections() throws SQLException {		
+		for(ProxyConnection proxyConnection : blockedConnectionQueue) {
+			proxyConnection.close();			
+		}		
 	}
 		
 	/**

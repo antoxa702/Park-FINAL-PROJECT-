@@ -34,23 +34,15 @@ public class ProxyConnection implements Connection {
 	 */
 	protected ProxyConnection(Connection connection) {	
 		this.connection = connection;
-	}
-	
-	public void closeInPool() throws SQLException {
-		connection.close();
-	}
+	}	
 	
 	protected Connection getConnection() {
 		return connection;
-	}
-	
+	}	
+		
 	@Override
-	public void close(){
-		try {
-			ConnectionPool.INSTANCE.releaseConnection(this);
-		} catch (SQLException e) {
-			LOGGER.warn("can't close connection");
-		}		
+	public void close() throws SQLException{
+		connection.close();
 	}
 
 	@Override
