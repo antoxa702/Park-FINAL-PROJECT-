@@ -80,14 +80,9 @@ public class Park implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+	@Override
+	public String toString() {
+		return "Park [id=" + id + ", name=" + name + ", area=" + area + "]";
+	}
 }
