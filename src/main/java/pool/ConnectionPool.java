@@ -7,7 +7,6 @@ import static util.StaticValues.DB_PROPERTIES_FILE_NAME;
 import static util.StaticValues.DB_URL_NAME;
 import static util.StaticValues.DB_USER_NAME;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
@@ -48,12 +47,12 @@ public enum ConnectionPool {
 	 * @return connection
 	 * @throws ConnectionPoolException
 	 */	
-	public Connection getConnection() throws ConnectionPoolException{		
+	public ProxyConnection getConnection() throws ConnectionPoolException{		
 		ProxyConnection proxyConnection;
 		try {						
 			proxyConnection = availableConnectionQueue.take();
-			blockedConnectionQueue.add(proxyConnection);	
-			return proxyConnection.getConnection();
+			blockedConnectionQueue.add(proxyConnection);
+			return proxyConnection;
 		} catch (InterruptedException e) {
 			LOGGER.error("Can't recieve connection from avaliableConnectionQueue");
 			throw new ConnectionPoolException("Error during getting connection");
@@ -143,7 +142,7 @@ public enum ConnectionPool {
 			try {
 				availableConnectionQueue.add(new ProxyConnection(DriverManager.getConnection(dbUrl, user, password)));
 			} catch (SQLException e) {				
-				LOGGER.warn("Warn : connection haven't been added");				
+				LOGGER.error("ERROR : connection haven't been added");				
 			}
 		}		
 	}

@@ -34,6 +34,7 @@ public class ProxyConnection implements Connection {
 	 */
 	protected ProxyConnection(Connection connection) {	
 		this.connection = connection;
+		LOGGER.debug("DEBUG : proxyConnection created within connection");
 	}	
 	
 	protected Connection getConnection() {
