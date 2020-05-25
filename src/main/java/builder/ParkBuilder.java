@@ -4,7 +4,7 @@ import entity.Park;
 
 public class ParkBuilder {
 	
-	Park park;
+	private Park park;
 	
 	public ParkBuilder() {
 		park = new Park();
