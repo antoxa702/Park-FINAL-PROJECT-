@@ -17,35 +17,38 @@ import pool.ConnectionPool;
 public class ParkDaoImpl implements ParkDao {
 	
 	private static final Logger LOGGER = LogManager.getLogger(ParkDaoImpl.class);
-	private static final String SQL_STATEMENT_INSERT_PARK = "INSERT INTO park ('name', 'area') VALUES (?,?)";
-	
+	private static final String SQL_STATEMENT_INSERT_PARK = "INSERT INTO park (name, area) VALUES (?,?);";	
 	
 	/**
 	 * Adds a record to Park database into table park.
 	 */
 	@Override
-	public void add(Park entity) throws DAOException {
+	public void add(Park park) throws DAOException {
 		
-		if (entity == null) {
+		if (park == null) {
 			LOGGER.error("ERROR : entity is null");
 			throw new DAOException("ERROR : can't add park - entity is null");			
-		}
+		}		
 		
 		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_INSERT_PARK)) {
-			statement.setString()
+			statement.setString(1, park.getName());
+			statement.setDouble(2, park.getArea());
 			
+			if (statement.executeUpdate() == 1) {
+				LOGGER.debug("DEBUG : record added successful");
+			} else {
+				LOGGER.warn("WARN : record haven't been added");
+				throw new SQLException("ERROR : None or few records have been inserted into park");
+			}			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("ERROR : problems with adding a record into table park");
+			throw new DAOException("SQLException while adding a record to table park", e);
 		} catch (ConnectionPoolException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		
-		
-		
+			LOGGER.error("ERROR : problems with adding a record into table park");
+			throw new DAOException("ConnectionPoolException while adding a record to table park", e1);
+		} 	
 		
 	}
 
@@ -58,13 +61,13 @@ public class ParkDaoImpl implements ParkDao {
 	@Override
 	public int update(Park entity) throws DAOException {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override
 	public int updateById(int id) throws DAOException {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override

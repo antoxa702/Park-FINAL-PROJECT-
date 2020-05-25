@@ -1,12 +1,8 @@
 package runner;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import exception.ConnectionPoolException;
-import pool.ConnectionPool;
-import pool.ProxyConnection;
+import dao.impl.ParkDaoImpl;
+import entity.Park;
+import exception.DAOException;
 
 
 /**
@@ -17,6 +13,19 @@ public class Runner {
 
 	public static void main(String[] args) {
 		
+		
+		Park park = new Park(12, "Парк Дививелка", 16.6);
+		ParkDaoImpl parkDao = new ParkDaoImpl();
+		try {
+			parkDao.add(park);
+		} catch (DAOException e) {
+			System.out.println("something went wrong");
+			e.printStackTrace();
+		}
+		
+		
+		
+		/*
 		Statement statement = null;
 		//Connection connection = null;
 		ResultSet resultSet = null;
@@ -44,7 +53,7 @@ public class Runner {
 				System.out.println("id=" + id + ", parkName=" + parkName + ", parkarea=" + parkArea);
 				System.out.println("------------------------------------------\n");
 			}
-			pool.releaseConnection(proxyConnection);
+			//pool.releaseConnection(proxyConnection);
 				
 		}  catch (ConnectionPoolException e) {
 			System.out.println("something is wrong with initializing connection pool");
@@ -67,6 +76,6 @@ public class Runner {
 			} catch (SQLException e) {
 				System.out.println("something is wrong with closing connection, statement or resultSet");
 			}				
-		}
+		}*/
 	}	
 }
