@@ -30,6 +30,7 @@ public enum ParkDaoImpl implements ParkDao {
 	private static final String SQL_STATEMENT_INSERT_PARK = "INSERT INTO park (name, area) VALUES (?,?);";	
 	private static final String SQL_STATEMENT_GET_BY_ID_PARK = "SELECT * FRPM park WHERE id=?;";
 	private static final String SQL_STATEMENT_UPDATE_PARK = "UPDATE park SET park.name=?, park.area=? WHERE park.id=?;";
+	private static final String SQL_STATEMENT_DELETE_PARK = "DELETE FROM park WHERE park.id=?;";
 	
 	/**
 	 * Adds a record to Park database into table park.
@@ -135,7 +136,7 @@ public enum ParkDaoImpl implements ParkDao {
 				LOGGER.debug("DEBUG : record updated successful");
 			} else {
 				LOGGER.warn("WARN : record haven't been updated");
-				throw new SQLException("ERROR : None or few records have been updated into park");
+				throw new SQLException("ERROR : None records have been updated into park");
 			}			
 			
 		} catch (SQLException e) {
@@ -149,16 +150,45 @@ public enum ParkDaoImpl implements ParkDao {
 		return updatedRowsCount;
 	}	
 
+	/**
+	 * Finds a record in table Park by matching park ID on entity 
+	 * and deletes from table this record. 
+	 * Returns true if deleted 1 row, false - if none have been deleted.
+	 */
 	@Override
-	public boolean delete(Park entity) throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(Park park) throws DAOException {
+		if (park == null) {
+			LOGGER.error ("ERROR : park entity is null");
+			throw new DAOException("ERROR : can't update table park by requared entity");
+		}		
+				
+		return deleteById(park.getId());		
 	}
 
+	/**
+	 * Finds a record in table Park by matching park ID on entity 
+	 * and deletes from table this record. 
+	 * Returns true if deleted 1 row, false - if none have been deleted.
+	 */
 	@Override
-	public boolean deleteById(int id) throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteById(int id) throws DAOException {	
+				
+		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_DELETE_PARK)) {
+			statement.setInt(1, id);			
+			if (statement.executeUpdate() != 1) {	
+				LOGGER.warn("WARN : None records have been deleted by ID");
+				return false;
+			} 			
+		} catch (SQLException e) {
+			LOGGER.error("ERROR : problems with deleting a record from table park");
+			throw new DAOException("SQLException while deleting a record from table park", e);
+		} catch (ConnectionPoolException e1) {
+			LOGGER.error("ERROR : problems with deleting a record from table park");
+			throw new DAOException("ConnectionPoolException while deleting a record from table park", e1);
+		} 	
+		
+		return true;
 	}
 
 	@Override
