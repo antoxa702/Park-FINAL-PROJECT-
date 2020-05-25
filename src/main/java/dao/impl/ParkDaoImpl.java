@@ -3,10 +3,13 @@ package dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.mysql.cj.util.StringUtils;
 
 import dao.ParkDao;
 import entity.Park;
@@ -34,7 +37,13 @@ public enum ParkDaoImpl implements ParkDao {
 		
 		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_INSERT_PARK)) {
-			statement.setString(1, park.getName());
+			
+			if (!StringUtils.isNullOrEmpty(park.getName())) {
+				statement.setString(1, park.getName());
+			} else {
+				statement.setNull(1, Types.NULL);
+			}			
+			
 			statement.setDouble(2, park.getArea());
 			
 			if (statement.executeUpdate() == 1) {
