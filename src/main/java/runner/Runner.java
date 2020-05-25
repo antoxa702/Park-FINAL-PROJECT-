@@ -1,8 +1,14 @@
 package runner;
 
-import dao.impl.ParkDaoImpl;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import builder.ParkBuilder;
 import entity.Park;
-import exception.DAOException;
+import exception.ConnectionPoolException;
+import pool.ConnectionPool;
 
 
 /**
@@ -12,8 +18,40 @@ import exception.DAOException;
 public class Runner {
 
 	public static void main(String[] args) {
+		/*
+		ParkBuilder builder = new ParkBuilder();
+		Park park = new ParkBuilder().withId(99).withName(null).withArea(22.03).build();
+		
+		System.out.println(park);
+		*/
+		
+		Park park = null;		
+		int idNumber = 20;
+		
+		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM park WHERE id=?;")) {
+			statement.setInt(1, idNumber);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {	
+				String parkName = resultSet.getString("name");
+				double parkArea = resultSet.getDouble("area");				
+				park = new ParkBuilder().withId(idNumber).withName(parkName).withArea(parkArea).build();					
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ConnectionPoolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+		System.out.println(park);
 		
 		
+		
+		/*
 		Park park = new Park(12, "Парк Дививелка", 16.6);
 		ParkDaoImpl parkDao = ParkDaoImpl.INSTANCE;
 		try {
@@ -22,7 +60,7 @@ public class Runner {
 			System.out.println("something went wrong");
 			e.printStackTrace();
 		}
-		
+		*/
 		
 		
 		/*

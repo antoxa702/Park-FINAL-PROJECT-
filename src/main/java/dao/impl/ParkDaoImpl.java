@@ -1,7 +1,11 @@
 package dao.impl;
 
+import static util.StaticValues.TABLE_PARK_AREA;
+import static util.StaticValues.TABLE_PARK_NAME;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
@@ -11,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.mysql.cj.util.StringUtils;
 
+import builder.ParkBuilder;
 import dao.ParkDao;
 import entity.Park;
 import exception.ConnectionPoolException;
@@ -23,6 +28,7 @@ public enum ParkDaoImpl implements ParkDao {
 	
 	private static final Logger LOGGER = LogManager.getLogger(ParkDaoImpl.class);
 	private static final String SQL_STATEMENT_INSERT_PARK = "INSERT INTO park (name, area) VALUES (?,?);";	
+	private static final String SQL_STATEMENT_GET_BY_ID_PARK = "SELECT * FRPM park WHERE id=?;";
 	
 	/**
 	 * Adds a record to Park database into table park.
@@ -41,6 +47,7 @@ public enum ParkDaoImpl implements ParkDao {
 			if (!StringUtils.isNullOrEmpty(park.getName())) {
 				statement.setString(1, park.getName());
 			} else {
+				LOGGER.warn("WARN : parkName is null");
 				statement.setNull(1, Types.NULL);
 			}			
 			
@@ -62,11 +69,38 @@ public enum ParkDaoImpl implements ParkDao {
 		} 	
 		
 	}
-
+	
+	/**
+	 * Finds a record in table Park by ID and returns (if it exists) a Park entity
+	 * according to this database record.
+	 */
 	@Override
 	public Park getById(int id) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Park park = null;		
+		
+		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_GET_BY_ID_PARK)) {
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {	
+				String parkName = resultSet.getString(TABLE_PARK_NAME);
+				double parkArea = resultSet.getDouble(TABLE_PARK_AREA);				
+				park = new ParkBuilder().withId(id).withName(parkName).withArea(parkArea).build();					
+			} else {
+				LOGGER.error("ERROR : Can't find park by ID");
+				throw new DAOException("Error : no such park by ID");
+			}
+			
+		} catch (SQLException e) {
+			LOGGER.error("ERROR : problems with getting a record from table park");
+			throw new DAOException("SQLException while getting a record from table park", e);
+		} catch (ConnectionPoolException e1) {
+			LOGGER.error("ERROR : problems with getting a record from table park");
+			throw new DAOException("ConnectionPoolException while getting a record from table park", e1);
+		} 	
+		
+		return park;
 	}
 
 	@Override

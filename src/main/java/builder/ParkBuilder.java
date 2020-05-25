@@ -14,16 +14,19 @@ public class ParkBuilder {
 		park = new Park();
 	}
 	
-	public void withId(int id) {
+	public ParkBuilder withId(int id) {
 		park.setId(id);
+		return this;
 	}
 	
-	public void withName(String parkName) {
+	public ParkBuilder withName(String parkName) {
 		park.setName(parkName);
+		return this;
 	}
 	
-	public void withArea (double parkArea) {
+	public ParkBuilder withArea (double parkArea) {
 		park.setArea(parkArea);
+		return this;
 	}
 	
 	public Park build() {

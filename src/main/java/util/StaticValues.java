@@ -5,8 +5,8 @@ public class StaticValues {
 	private StaticValues() {}
 	
 	/**
-	 * Next Strings are used for initialize database properties file,
-	 * where connection parameters are used for ConnectionPool initialize, too.
+	 * Next Strings are used for initialize database properties file.
+	 * Connection parameters are used for ConnectionPool initialize.
 	 */	
 	public static final String DB_PROPERTIES_FILE_NAME = "database";
 	public static final String DB_DRIVER_NAME = "db.driver";
@@ -16,5 +16,15 @@ public class StaticValues {
 	public static final String DB_POOLSIZE_NAME = "db.poolSize";
 	public static final String DB_USE_UNICODE_NAME = "db.useUnicode";
 	public static final String DB_ENCODING_NAME = "db.encoding";
+	
+	/**
+	 * Next Strings are used for identify column names at database tables 
+	 * 
+	 *  ------ table park ------
+	 */	
+	public static final String TABLE_PARK_ID = "id";
+	public static final String TABLE_PARK_NAME = "name";
+	public static final String TABLE_PARK_AREA = "area";
+	
 			
 }
