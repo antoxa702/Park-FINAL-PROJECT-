@@ -4,6 +4,10 @@ public class StaticValues {
 	
 	private StaticValues() {}
 	
+	/**
+	 * Next Strings are used for initialize database properties file,
+	 * where connection parameters are used for ConnectionPool initialize, too.
+	 */	
 	public static final String DB_PROPERTIES_FILE_NAME = "database";
 	public static final String DB_DRIVER_NAME = "db.driver";
 	public static final String DB_URL_NAME = "db.url";

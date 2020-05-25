@@ -22,6 +22,8 @@ import java.util.concurrent.Executor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import exception.ConnectionPoolException;
+
 public class ProxyConnection implements Connection {	
 
 	private static final Logger LOGGER = LogManager.getLogger(ProxyConnection.class);
@@ -42,7 +44,19 @@ public class ProxyConnection implements Connection {
 	}	
 		
 	@Override
-	public void close() throws SQLException{
+	public void close(){
+		try {
+			ConnectionPool.INSTANCE.releaseConnection(this);
+		} catch (ConnectionPoolException e) {
+			LOGGER.error("ERROR : can't release connection");
+		}
+	}
+	
+	/**
+	 * Really closes connection
+	 * @throws SQLException
+	 */
+	public void closeInPool() throws SQLException {
 		connection.close();
 	}
 

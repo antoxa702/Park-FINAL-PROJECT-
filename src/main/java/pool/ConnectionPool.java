@@ -96,7 +96,7 @@ public enum ConnectionPool {
 	 */	
 	private void closeAvailableConnections() throws SQLException {
 		for(ProxyConnection proxyConnection : availableConnectionQueue) {
-			proxyConnection.close();			
+			proxyConnection.closeInPool();			
 		}		
 	}
 	
@@ -105,7 +105,7 @@ public enum ConnectionPool {
 	 */	
 	private void closeBlockedConnections() throws SQLException {		
 		for(ProxyConnection proxyConnection : blockedConnectionQueue) {
-			proxyConnection.close();			
+			proxyConnection.closeInPool();			
 		}		
 	}
 		
