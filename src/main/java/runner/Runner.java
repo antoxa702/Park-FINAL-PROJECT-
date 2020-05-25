@@ -15,7 +15,7 @@ public class Runner {
 		
 		
 		Park park = new Park(12, "Парк Дививелка", 16.6);
-		ParkDaoImpl parkDao = new ParkDaoImpl();
+		ParkDaoImpl parkDao = ParkDaoImpl.INSTANCE;
 		try {
 			parkDao.add(park);
 		} catch (DAOException e) {

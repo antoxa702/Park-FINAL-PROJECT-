@@ -14,7 +14,9 @@ import exception.ConnectionPoolException;
 import exception.DAOException;
 import pool.ConnectionPool;
 
-public class ParkDaoImpl implements ParkDao {
+public enum ParkDaoImpl implements ParkDao {
+	
+	INSTANCE;
 	
 	private static final Logger LOGGER = LogManager.getLogger(ParkDaoImpl.class);
 	private static final String SQL_STATEMENT_INSERT_PARK = "INSERT INTO park (name, area) VALUES (?,?);";	
