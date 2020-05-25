@@ -29,6 +29,7 @@ public enum ParkDaoImpl implements ParkDao {
 	private static final Logger LOGGER = LogManager.getLogger(ParkDaoImpl.class);
 	private static final String SQL_STATEMENT_INSERT_PARK = "INSERT INTO park (name, area) VALUES (?,?);";	
 	private static final String SQL_STATEMENT_GET_BY_ID_PARK = "SELECT * FRPM park WHERE id=?;";
+	private static final String SQL_STATEMENT_UPDATE_PARK = "UPDATE park SET park.name=?, park.area=? WHERE park.id=?;";
 	
 	/**
 	 * Adds a record to Park database into table park.
@@ -62,10 +63,10 @@ public enum ParkDaoImpl implements ParkDao {
 			
 		} catch (SQLException e) {
 			LOGGER.error("ERROR : problems with adding a record into table park");
-			throw new DAOException("SQLException while adding a record to table park", e);
+			throw new DAOException("SQLException while adding a record into table park", e);
 		} catch (ConnectionPoolException e1) {
 			LOGGER.error("ERROR : problems with adding a record into table park");
-			throw new DAOException("ConnectionPoolException while adding a record to table park", e1);
+			throw new DAOException("ConnectionPoolException while adding a record into table park", e1);
 		} 	
 		
 	}
@@ -102,18 +103,51 @@ public enum ParkDaoImpl implements ParkDao {
 		
 		return park;
 	}
-
+	
+	/**
+	 * Finds a record in table Park by matching park ID on entity and table record 
+	 * and returns number of updated rows.
+	 */
 	@Override
-	public int update(Park entity) throws DAOException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateById(int id) throws DAOException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int update(Park park) throws DAOException {
+		if (park == null) {
+			LOGGER.error ("ERROR : park entity is null");
+			throw new DAOException("ERROR : can't update table park by requared entity");
+		}	
+		
+		int updatedRowsCount = 0;
+			
+		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_UPDATE_PARK)) {
+			
+			if (!StringUtils.isNullOrEmpty(park.getName())) {
+				statement.setString(1, park.getName());
+			} else {
+				LOGGER.warn("WARN : parkName is null");
+				statement.setNull(1, Types.NULL);
+			}			
+			
+			statement.setDouble(2, park.getArea());
+			statement.setInt(3, park.getId());
+			updatedRowsCount = statement.executeUpdate();			
+			
+			if (updatedRowsCount == 1) {
+				LOGGER.debug("DEBUG : record updated successful");
+			} else {
+				LOGGER.warn("WARN : record haven't been updated");
+				throw new SQLException("ERROR : None or few records have been updated into park");
+			}			
+			
+		} catch (SQLException e) {
+			LOGGER.error("ERROR : problems with updating a record into table park");
+			throw new DAOException("SQLException while updating a record into table park", e);
+		} catch (ConnectionPoolException e1) {
+			LOGGER.error("ERROR : problems with updating a record into table park");
+			throw new DAOException("ConnectionPoolException while updating a record into table park", e1);
+		} 	
+		
+		return updatedRowsCount;
+	}	
 
 	@Override
 	public boolean delete(Park entity) throws DAOException {
@@ -139,5 +173,9 @@ public enum ParkDaoImpl implements ParkDao {
 		return null;
 	}
 	
+	@Override
+	public int updateById(int id) throws DAOException {
+		throw new UnsupportedOperationException("Operation doesn't supports with park entity");
+	}	
 
 }

@@ -1,16 +1,5 @@
 package runner;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import builder.ParkBuilder;
-import entity.Park;
-import exception.ConnectionPoolException;
-import pool.ConnectionPool;
-
-
 /**
  * Do some tests during writing classes, like testing poll, peek methods and else..
  * @author Anton
@@ -18,6 +7,9 @@ import pool.ConnectionPool;
 public class Runner {
 
 	public static void main(String[] args) {
+		
+		
+		
 		/*
 		ParkBuilder builder = new ParkBuilder();
 		Park park = new ParkBuilder().withId(99).withName(null).withArea(22.03).build();
@@ -25,6 +17,7 @@ public class Runner {
 		System.out.println(park);
 		*/
 		
+		/*
 		Park park = null;		
 		int idNumber = 20;
 		
@@ -48,7 +41,7 @@ public class Runner {
 		
 	
 		System.out.println(park);
-		
+		*/
 		
 		
 		/*
