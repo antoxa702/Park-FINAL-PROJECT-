@@ -1,6 +1,7 @@
 package dao.impl;
 
 import static util.StaticValues.TABLE_PARK_AREA;
+import static util.StaticValues.TABLE_PARK_ID;
 import static util.StaticValues.TABLE_PARK_NAME;
 
 import java.sql.Connection;
@@ -8,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -27,8 +29,10 @@ public enum ParkDaoImpl implements ParkDao {
 	INSTANCE;
 	
 	private static final Logger LOGGER = LogManager.getLogger(ParkDaoImpl.class);
+	private static final String SQL_STATEMENT_GET_ALL_PARK = "SELECT * FROM park;";
 	private static final String SQL_STATEMENT_INSERT_PARK = "INSERT INTO park (name, area) VALUES (?,?);";	
-	private static final String SQL_STATEMENT_GET_BY_ID_PARK = "SELECT * FRPM park WHERE id=?;";
+	private static final String SQL_STATEMENT_GET_BY_ID_PARK = "SELECT * FROM park WHERE id=?;";
+	private static final String SQL_STATEMENT_GET_BY_NAME_PARK = "SELECT * FROM park WHERE name=?;";
 	private static final String SQL_STATEMENT_UPDATE_PARK = "UPDATE park SET park.name=?, park.area=? WHERE park.id=?;";
 	private static final String SQL_STATEMENT_DELETE_PARK = "DELETE FROM park WHERE park.id=?;";
 	
@@ -191,18 +195,73 @@ public enum ParkDaoImpl implements ParkDao {
 		return true;
 	}
 
+	/**
+	 * Finds a record in table Park by name and returns (if it exists) a Park entity
+	 * according to this database record.
+	 */
 	@Override
 	public Park getByName(String name) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		Park park = null;
+		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_GET_BY_NAME_PARK)) {
+			statement.setString(1, name.trim());
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {	
+				int id = resultSet.getInt(TABLE_PARK_ID);
+				String parkName = resultSet.getString(TABLE_PARK_NAME);
+				double parkArea = resultSet.getDouble(TABLE_PARK_AREA);				
+				park = new ParkBuilder().withId(id).withName(parkName).withArea(parkArea).build();					
+			} else {
+				LOGGER.warn("WARN : Can't find park by name");
+				throw new DAOException("Error : no such park by name");
+			}			
+		} catch (SQLException e) {
+			LOGGER.error("ERROR : problems with getting a record from table park");
+			throw new DAOException("SQLException while getting a record from table park", e);
+		} catch (ConnectionPoolException e1) {
+			LOGGER.error("ERROR : problems with getting a record from table park");
+			throw new DAOException("ConnectionPoolException while getting a record from table park", e1);
+		} 	
+		
+		return park;		
 	}
 
+	/**
+	 * Returns a list of Park entities according to database's table park.
+	 */
 	@Override
 	public List<Park> getAllParks() throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Park> parks = new ArrayList<>();
+		
+		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_GET_ALL_PARK)) {			
+			
+			ResultSet resultSet = statement.executeQuery();			
+			int id; 
+			String parkName;
+			double parkArea;			
+		
+			while(resultSet.next()) {
+				id = resultSet.getInt(TABLE_PARK_ID);
+				parkName = resultSet.getString(TABLE_PARK_NAME);
+				parkArea = resultSet.getDouble(TABLE_PARK_AREA);		
+				parks.add(new ParkBuilder().withId(id).withName(parkName).withArea(parkArea).build());
+			}
+		} catch (SQLException e) {
+			LOGGER.error("ERROR : problems with getting records from table park");
+			throw new DAOException("SQLException while getting records from table park", e);
+		} catch (ConnectionPoolException e1) {
+			LOGGER.error("ERROR : problems with getting records from table park");
+			throw new DAOException("ConnectionPoolException while getting records from table park", e1);
+		} 	
+			
+		return parks;
 	}
 	
+	/**
+	 * Unsupported operation
+	 */
 	@Override
 	public int updateById(int id) throws DAOException {
 		throw new UnsupportedOperationException("Operation doesn't supports with park entity");
