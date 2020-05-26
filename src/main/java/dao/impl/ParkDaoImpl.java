@@ -266,5 +266,7 @@ public enum ParkDaoImpl implements ParkDao {
 	public int updateById(int id) throws DAOException {
 		throw new UnsupportedOperationException("Operation doesn't supports with park entity");
 	}	
+	
+	//TODO test in runner all the methods
 
 }

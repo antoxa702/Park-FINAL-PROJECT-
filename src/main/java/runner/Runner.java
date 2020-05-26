@@ -1,5 +1,7 @@
 package runner;
 
+import dao.impl.ParkDaoImpl;
+
 /**
  * Do some tests during writing classes, like testing poll, peek methods and else..
  * @author Anton
@@ -8,6 +10,83 @@ public class Runner {
 
 	public static void main(String[] args) {
 		
+		ParkDaoImpl parkDao = ParkDaoImpl.INSTANCE;
+		
+		// void add (Park park)
+		/*	
+		ParkBuilder builder = new ParkBuilder();
+		Park park = new ParkBuilder().withId(111).withName("aaa").withArea(22.03).build();
+		
+		try {
+			parkDao.add(park);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		
+		// Park getById (int id)
+		/*
+		try {
+			Park park = parkDao.getById(22);
+			System.out.println(park);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		// int update (Park park)
+		/*
+		try {
+			Park park = parkDao.getById(14);
+			park.setName("bbb");
+			parkDao.update(park);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		// Park getByName (String name)	
+		/*
+		try {
+			Park park = parkDao.getByName("bbb");
+			System.out.println(park);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		// List<Park> getAllParks ()
+		/*
+		List<Park> parks;
+		try {
+			parks = parkDao.getAllParks();
+			System.out.println(parks);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		// boolean delete (Park park)
+		/*
+		try {
+			Park park = parkDao.getById(22);
+			System.out.println(parkDao.delete(park));
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		*/
+		
+		// boolean deleteById (int id) - works anyway
+		
+		
+		
+
 		
 		
 		/*
