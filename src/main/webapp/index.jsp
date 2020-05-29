@@ -29,7 +29,7 @@
 		<center>
 			<h1>Hello World !!!</h1>
 			<div>
-				<form action="list" method="POST">
+				<form action="list?action=get_park_list" method="POST">
 					<button type="submit" class="btn btn-danger"
 						style="margin: 0px auto">GIVE ME PARK LIST</button>
 				</form>

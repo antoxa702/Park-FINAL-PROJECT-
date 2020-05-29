@@ -1,6 +1,6 @@
 package runner;
 
-import dao.impl.ParkDaoImpl;
+import exception.CommandException;
 
 /**
  * Do some tests during writing classes, like testing poll, peek methods and else..
@@ -8,10 +8,25 @@ import dao.impl.ParkDaoImpl;
  */
 public class Runner {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CommandException {
 		
-		ParkDaoImpl parkDao = ParkDaoImpl.INSTANCE;
-		
+		//ParkDaoImpl parkDao = ParkDaoImpl.INSTANCE;
+
+		//String command = CommandType.GET_PARK_LIST.name();
+		//String requestCommand = "get_Park_liST";
+
+		//System.out.println(command.equals(requestCommand.toUpperCase()));
+
+
+//		try {
+//			List<Park> parkList = new CommandProvider().getCommand(requestCommand).execute();
+//			System.out.println(parkList);
+//		}  catch (ParkServiceException e) {
+//			e.printStackTrace();
+//		}
+
+
+
 		// void add (Park park)
 		/*	
 		ParkBuilder builder = new ParkBuilder();
