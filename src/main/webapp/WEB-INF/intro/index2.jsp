@@ -29,7 +29,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="park" items="${parks}">
+			<c:forEach var="park" items="${parkList}">
 				<tr>
 					<th scope="row" />
 					<td>${park.id}</td>

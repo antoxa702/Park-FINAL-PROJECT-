@@ -1,28 +1,20 @@
 package dao.impl;
 
-import static util.StaticValues.TABLE_PARK_AREA;
-import static util.StaticValues.TABLE_PARK_ID;
-import static util.StaticValues.TABLE_PARK_NAME;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.mysql.cj.util.StringUtils;
-
 import builder.ParkBuilder;
+import com.mysql.cj.util.StringUtils;
 import dao.ParkDao;
 import entity.Park;
 import exception.ConnectionPoolException;
 import exception.DAOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pool.ConnectionPool;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static util.DbInitValues.*;
 
 public enum ParkDaoImpl implements ParkDao {
 	

@@ -7,28 +7,31 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
 import static command.CommandType.*;
+import static util.FrontControllerValues.*;
 
-public class CommandProvider {
+public enum CommandProvider {
+
+	INSTANCE;
 
 	private static final Logger LOGGER = LogManager.getLogger(CommandProvider.class);
 	private Map<String, Command> repository = new HashMap<>();
-	HttpServletRequest request;
-	HttpServletResponse response;
 
-	public CommandProvider(HttpServletRequest request, HttpServletResponse response) {
-		this.request = request;
-		this.response = response;
+	CommandProvider() {
 		repository.put(GET_PARK_LIST.name(), new ParkListCommand());
 		// more ..
 	}
 
-	public Command getCommand() throws CommandException {
-		String commandName = request.getParameter("action").toUpperCase();
+	public Command getCommand(HttpServletRequest request) throws CommandException {
+		if (request == null) {
+			LOGGER.error("ERROR : request is null");
+			throw new CommandException("ERROR : no such request");
+		}
+
+		String commandName = request.getParameter(ACTION).toUpperCase();
 		return repository.get(commandName);
 	}
 }

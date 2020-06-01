@@ -1,11 +1,11 @@
 package pool;
 
-import static util.StaticValues.DB_DRIVER_NAME;
-import static util.StaticValues.DB_PASSWORD_NAME;
-import static util.StaticValues.DB_POOLSIZE_NAME;
-import static util.StaticValues.DB_PROPERTIES_FILE_NAME;
-import static util.StaticValues.DB_URL_NAME;
-import static util.StaticValues.DB_USER_NAME;
+import static util.DbInitValues.DB_DRIVER_NAME;
+import static util.DbInitValues.DB_PASSWORD_NAME;
+import static util.DbInitValues.DB_POOLSIZE_NAME;
+import static util.DbInitValues.DB_PROPERTIES_FILE_NAME;
+import static util.DbInitValues.DB_URL_NAME;
+import static util.DbInitValues.DB_USER_NAME;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;

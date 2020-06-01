@@ -9,7 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class ParkService {
+public enum ParkService {
+	INSTANCE;
 	private static final Logger LOGGER = LogManager.getLogger(ParkService.class);
 	ParkDaoImpl parkDao = ParkDaoImpl.INSTANCE;
 

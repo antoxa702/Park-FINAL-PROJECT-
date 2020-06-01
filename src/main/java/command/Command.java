@@ -2,8 +2,8 @@ package command;
 
 import exception.ParkServiceException;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
-public interface Command <T> {
-	public  List<T> execute() throws ParkServiceException;
+public interface Command {
+	PageManager execute(HttpServletRequest request) throws ParkServiceException;
 }

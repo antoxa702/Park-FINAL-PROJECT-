@@ -1,6 +1,6 @@
-package servlet;
+package controller;
 
-import entity.Park;
+import command.Command;
 import exception.CommandException;
 import exception.ParkServiceException;
 import factory.CommandProvider;
@@ -11,32 +11,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet (name="list", urlPatterns="/list")
-public class FirstServlet extends HttpServlet {
+public class FrontControllerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String path = "index2.jsp";
-		List<Park> parkList = null;
+
 		try {
-			parkList = new CommandProvider(request, response).getCommand().execute();
-			request.setAttribute("parks", parkList);
+			CommandProvider commandProvider = CommandProvider.INSTANCE; // getting commandProvider instance
+			Command command = commandProvider.getCommand(request);		// getting Command
+			command.execute(request);									// getting request object after setting attribute
+
+			String path  = command.execute(request).getUrl();
 			request.getRequestDispatcher(path).forward(request, response);
+
 		} catch (ParkServiceException e) {
 			e.printStackTrace();
 		} catch (CommandException e) {
 			e.printStackTrace();
 		}
-
-		
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-	
-
 }

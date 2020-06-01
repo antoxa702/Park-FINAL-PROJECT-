@@ -1,8 +1,8 @@
 package util;
 
-public class StaticValues {
+public class DbInitValues {
 	
-	private StaticValues() {}
+	private DbInitValues() {}
 	
 	/**
 	 * Next Strings are used for initialize database properties file.
