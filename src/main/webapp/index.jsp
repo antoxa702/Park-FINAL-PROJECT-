@@ -26,15 +26,15 @@
 			always will cover the full screen (when scrolled to top), and that it
 			scales nicely on all screen sizes.</p>
 
-		<center>
-			<h1>Hello World !!!</h1>
+
+			<h1>Hello</h1>
 			<div>
 				<form action="list?action=get_park_list" method="POST">
 					<button type="submit" class="btn btn-danger"
 						style="margin: 0px auto">GIVE ME PARK LIST</button>
 				</form>
 			</div>
-		</center>
+
 	</div>
 
 </body>
