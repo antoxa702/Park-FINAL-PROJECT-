@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+.bg {
+  /* The image used */
+  background-image: url("../images/background.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+div {
+}
+#left { text-align: left; }
+#right { text-align: right; }
+#center { text-align: center; }
+.content {
+  width: 60%; /* Ширина слоя */
+  border:3px;
+  border-style:solid;
+  border-color: #ff0000;
+  border-radius: 20px;
+  padding-bottom: -5px;
+  padding-top: -5px;
+  padding-right: 100px;
+  padding-left: 100px;
+}

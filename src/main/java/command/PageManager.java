@@ -2,7 +2,8 @@ package command;
 
 public enum PageManager {
 	//add more..
-	INDEX2 ("/WEB-INF/intro/index2.jsp");
+	INDEX2 ("/WEB-INF/intro/index2.jsp"),
+	MAIN_PAGE ("/WEB-INF/jsp/main.jsp");
 
 	String url;
 

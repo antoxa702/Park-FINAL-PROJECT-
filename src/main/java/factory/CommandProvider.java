@@ -1,6 +1,7 @@
 package factory;
 
 import command.Command;
+import command.impl.MainPageCommand;
 import command.impl.ParkListCommand;
 import exception.CommandException;
 import org.apache.logging.log4j.LogManager;
@@ -22,6 +23,7 @@ public enum CommandProvider {
 
 	CommandProvider() {
 		repository.put(GET_PARK_LIST.name(), new ParkListCommand());
+		repository.put(MAIN_PAGE.name(), new MainPageCommand());
 		// more ..
 	}
 

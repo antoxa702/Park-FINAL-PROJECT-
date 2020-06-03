@@ -2,6 +2,9 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<jsp:forward page="/fcs">
-    <jsp:param name="action" value="main_page"/>
-</jsp:forward>
+<jsp:include page="include/header.jsp"/>
+
+
+
+
+<jsp:include page="include/footer.jsp"/>

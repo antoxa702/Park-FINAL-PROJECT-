@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.navbar-dark{
+    opacity: 0.9;
+    color: #111111;
+    background-color: #111111;
+}
+.nav-item{
+    width: max-content;
+}
+collapse{
+    width: max-content ;
+}

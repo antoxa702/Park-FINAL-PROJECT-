@@ -2,7 +2,8 @@ package command;
 
 public enum CommandType {
 
-	GET_PARK_LIST ("GET_PARK_LIST");
+	GET_PARK_LIST ("GET_PARK_LIST"),
+	MAIN_PAGE ("MAIN_PAGE");
 
 	public final String name;
 
