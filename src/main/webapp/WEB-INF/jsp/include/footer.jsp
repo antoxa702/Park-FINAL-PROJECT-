@@ -1,5 +1,6 @@
 <%@page pageEncoding="UTF-8" %>
 
+</div>
 <div class="footer">
     <hr style="color: red; background-color: #ff0000; height: 2px; margin-top: 5px; margin-bottom: 5px;"/>
     <p style="margin: 0;">© 2020. All Rights Reserved. If you have any problems with this site, please,

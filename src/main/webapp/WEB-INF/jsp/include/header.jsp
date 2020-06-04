@@ -45,13 +45,13 @@
                             <a class="nav-link" href="#">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Sign in</a>
+                            <a href="fcs?action=sign_in" class="nav-link" data-toggle="modal" data-target="#signin">Sign in</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Sign out</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="fcs?action=get_park_list">Parks</a>
                         </li>
                     </ul>
                 </div>
@@ -59,6 +59,24 @@
         </nav>
     </header>
 
-    <div class="container">
 
-    </div>
+
+    <div class="container">
+<!-- // too do modal window for sign in
+
+        <div class="modal fade" id="signin" tabindex="-1" role="dialog" aria-labelledby="signin" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="signinLabel">Sign In</h5>
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+-->
+

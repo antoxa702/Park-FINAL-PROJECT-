@@ -2,9 +2,10 @@ package command;
 
 public enum CommandType {
 
-	GET_PARK_LIST ("GET_PARK_LIST"),
-	MAIN_PAGE ("MAIN_PAGE"),
-	ERROR_PAGE ("ERROR_PAGE");
+	GET_PARK_LIST("GET_PARK_LIST"),
+	MAIN("MAIN_PAGE"),
+	ERROR("ERROR_PAGE"),
+	SIGN_IN("SIGN_IN");
 
 	public final String name;
 

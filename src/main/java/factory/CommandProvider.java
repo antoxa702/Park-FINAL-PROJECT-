@@ -4,6 +4,7 @@ import command.Command;
 import command.impl.ErrorPageCommand;
 import command.impl.MainPageCommand;
 import command.impl.ParkListCommand;
+import command.impl.SignInPageCommand;
 import exception.CommandException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,8 +25,9 @@ public enum CommandProvider {
 
 	CommandProvider() {
 		repository.put(GET_PARK_LIST.name(), new ParkListCommand());
-		repository.put(MAIN_PAGE.name(), new MainPageCommand());
-		repository.put(ERROR_PAGE.name(), new ErrorPageCommand());
+		repository.put(MAIN.name(), new MainPageCommand());
+		repository.put(ERROR.name(), new ErrorPageCommand());
+		repository.put(SIGN_IN.name(), new SignInPageCommand());
 		// more ..
 	}
 
@@ -37,7 +39,7 @@ public enum CommandProvider {
 
 		String commandName = request.getParameter(ACTION).toUpperCase();
 		if (repository.get(commandName) == null) {
-			commandName = ERROR_PAGE.name();
+			commandName = ERROR.name();
 		}
 		return repository.get(commandName);
 	}

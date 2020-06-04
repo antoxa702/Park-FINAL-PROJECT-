@@ -2,13 +2,8 @@ package entity;
 
 import java.io.Serializable;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class Park implements Serializable {
-	
-	private static final Logger LOGGER = LogManager.getLogger(Park.class);
-	
+
 	private int id;
 	private String name;
 	private double area;

@@ -3,5 +3,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:forward page="/fcs">
-    <jsp:param name="action" value="main_page"/>
+    <jsp:param name="action" value="main"/>
 </jsp:forward>

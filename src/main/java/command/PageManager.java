@@ -4,7 +4,8 @@ public enum PageManager {
 	//add more..
 	INDEX2 ("/WEB-INF/intro/index2.jsp"),
 	MAIN_PAGE ("/WEB-INF/jsp/main.jsp"),
-	ERROR_PAGE("/WEB-INF/jsp/error.jsp");
+	ERROR_PAGE("/WEB-INF/jsp/error.jsp"),
+	SIGN_PAGE("/WEB-INF/jsp/signin.jsp");
 
 	String url;
 
