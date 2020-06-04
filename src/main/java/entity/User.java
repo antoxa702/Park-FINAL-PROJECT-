@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class User implements Serializable {
 
@@ -39,7 +41,7 @@ public class User implements Serializable {
 		return id;
 	}
 
-	private void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -88,7 +90,13 @@ public class User implements Serializable {
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		Pattern pattern = Pattern.compile("\\d+");
+		Matcher matcher = pattern.matcher(phoneNumber);
+		if (matcher.matches()){
+			this.phoneNumber = phoneNumber;
+		} else {
+			this.phoneNumber = null;
+		}
 	}
 
 	public String getEmail() {
@@ -96,7 +104,13 @@ public class User implements Serializable {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		Pattern pattern = Pattern.compile("\\w+@\\w+\\.\\w+");
+		Matcher matcher = pattern.matcher(email);
+		if (matcher.matches()){
+			this.email = email;
+		} else {
+			this.email = null;
+		}
 	}
 
 	public UserType getUserType() {

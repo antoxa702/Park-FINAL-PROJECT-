@@ -2,6 +2,9 @@ package runner;
 
 import exception.CommandException;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Do some tests during writing classes, like testing poll, peek methods and else..
  * @author Anton
@@ -9,7 +12,17 @@ import exception.CommandException;
 public class Runner {
 
 	public static void main(String[] args) throws CommandException {
-		
+		String phone = "";
+
+		Pattern pattern = Pattern.compile("\\d+");
+		Matcher matcher = pattern.matcher(phone);
+		if (matcher.matches()){
+			System.out.println(phone);;
+		} else {
+			System.out.println("WRONG PHONE NUMBER");
+		}
+
+
 		//ParkDaoImpl parkDao = ParkDaoImpl.INSTANCE;
 
 		//String command = CommandType.GET_PARK_LIST.name();

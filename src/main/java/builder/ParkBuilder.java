@@ -10,10 +10,6 @@ public class ParkBuilder {
 		park = new Park();
 	}
 	
-	public void createNewPark() {
-		park = new Park();
-	}
-	
 	public ParkBuilder withId(int id) {
 		park.setId(id);
 		return this;
