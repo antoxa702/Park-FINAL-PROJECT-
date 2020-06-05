@@ -52,7 +52,7 @@ public enum ParkDaoImpl implements ParkDao {
 			statement.setDouble(2, park.getArea());
 			
 			if (statement.executeUpdate() == 1) {
-				LOGGER.debug("DEBUG : record added successful");
+				LOGGER.debug("DEBUG : record added successfully");
 			} else {
 				LOGGER.warn("WARN : record haven't been added");
 				throw new SQLException("ERROR : None or few records have been inserted into park");
@@ -109,7 +109,7 @@ public enum ParkDaoImpl implements ParkDao {
 	public int update(Park park) throws DAOException {
 		if (park == null) {
 			LOGGER.error ("ERROR : park entity is null");
-			throw new DAOException("ERROR : can't update table park by requared entity");
+			throw new DAOException("ERROR : can't update table park by required entity");
 		}	
 		
 		int updatedRowsCount = 0;
@@ -155,7 +155,7 @@ public enum ParkDaoImpl implements ParkDao {
 	public boolean delete(Park park) throws DAOException {
 		if (park == null) {
 			LOGGER.error ("ERROR : park entity is null");
-			throw new DAOException("ERROR : can't update table park by requared entity");
+			throw new DAOException("ERROR : can't update table park by required entity");
 		}		
 				
 		return deleteById(park.getId());		

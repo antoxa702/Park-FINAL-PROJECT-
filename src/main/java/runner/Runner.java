@@ -1,9 +1,9 @@
 package runner;
 
+import dao.impl.UserTypeDaoImpl;
+import entity.UserType;
 import exception.CommandException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import exception.DAOException;
 
 /**
  * Do some tests during writing classes, like testing poll, peek methods and else..
@@ -12,6 +12,37 @@ import java.util.regex.Pattern;
 public class Runner {
 
 	public static void main(String[] args) throws CommandException {
+
+		UserTypeDaoImpl userTypeDao = UserTypeDaoImpl.INSTANCE;
+//
+//		UserType userType = new UserTypeBuilder().withName("owner").build();
+//		try{
+//			userTypeDao.add(userType);
+//		} catch (DAOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		List<UserType> userTypeList;
+//		try {
+//			userTypeList = userTypeDao.getAllUserTypes();
+//			System.out.println(userTypeList);
+//		} catch (DAOException e) {
+//			e.printStackTrace();
+//		}
+
+		UserType userType = null;
+		try{
+			userType = userTypeDao.getById(5);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(userType);
+
+
+
+
+
+		/*
 		String phone = "1231351516479846515";
 		Pattern pattern = Pattern.compile("[\\d]{3,12}");
 		Matcher matcher = pattern.matcher(phone);
@@ -21,7 +52,7 @@ public class Runner {
 		} else {
 			System.out.println("WRONG PHONE");
 		}
-
+*/
 
 		//ParkDaoImpl parkDao = ParkDaoImpl.INSTANCE;
 

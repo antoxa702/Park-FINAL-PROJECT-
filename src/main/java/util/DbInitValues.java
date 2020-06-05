@@ -25,6 +25,14 @@ public class DbInitValues {
 	public static final String TABLE_PARK_ID = "id";
 	public static final String TABLE_PARK_NAME = "name";
 	public static final String TABLE_PARK_AREA = "area";
-	
+
+	/**
+	 * Next Strings are used for identify column names at database tables
+	 *
+	 *  ------ table user_type ------
+	 */
+	public static final String TABLE_USER_TYPE_ID = "id";
+	public static final String TABLE_USER_TYPE_NAME = "type_name";
+
 			
 }
