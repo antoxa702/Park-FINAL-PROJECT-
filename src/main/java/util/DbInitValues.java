@@ -42,5 +42,13 @@ public class DbInitValues {
 	public static final String TABLE_PLANT_TYPE_ID = "id";
 	public static final String TABLE_PLANT_TYPE_NAME = "type_name";
 
+	/**
+	 * Next Strings are used for identify column names at database tables
+	 *
+	 *  ------ table work_type ------
+	 */
+	public static final String TABLE_WORK_TYPE_ID = "id";
+	public static final String TABLE_WORK_TYPE_NAME = "type_name";
+
 			
 }

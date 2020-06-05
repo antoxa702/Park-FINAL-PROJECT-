@@ -21,7 +21,7 @@ public enum PlantTypeDaoImpl implements PlantTypeDao {
 
 	INSTANCE;
 
-	private static final Logger LOGGER = LogManager.getLogger(UserTypeDaoImpl.class);
+	private static final Logger LOGGER = LogManager.getLogger(PlantTypeDaoImpl.class);
 	private static final String SQL_STATEMENT_GET_ALL_PLANT_TYPE = "SELECT * FROM plant_type;";
 	private static final String SQL_STATEMENT_INSERT_PLANT_TYPE = "INSERT INTO plant_type (type_name) VALUES (?);";
 	private static final String SQL_STATEMENT_GET_BY_ID_PLANT_TYPE = "SELECT * FROM plant_type WHERE id=?;";

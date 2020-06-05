@@ -3,6 +3,7 @@ package builder;
 import entity.PlantType;
 
 public class PlantTypeBuilder {
+
 	private PlantType plantType;
 
 	public PlantTypeBuilder() {
