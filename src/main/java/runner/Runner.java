@@ -12,14 +12,14 @@ import java.util.regex.Pattern;
 public class Runner {
 
 	public static void main(String[] args) throws CommandException {
-		String phone = "";
-
-		Pattern pattern = Pattern.compile("\\d+");
+		String phone = "1231351516479846515";
+		Pattern pattern = Pattern.compile("[\\d]{3,12}");
 		Matcher matcher = pattern.matcher(phone);
+		System.out.println("your phone=" + phone);
 		if (matcher.matches()){
-			System.out.println(phone);;
+			System.out.println("phone=" + phone);;
 		} else {
-			System.out.println("WRONG PHONE NUMBER");
+			System.out.println("WRONG PHONE");
 		}
 
 

@@ -28,5 +28,4 @@ public class ParkBuilder {
 	public Park build() {
 		return park;
 	}
-
 }
