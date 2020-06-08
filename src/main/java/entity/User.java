@@ -17,14 +17,14 @@ public class User implements Serializable {
 	private Date dateOfBirth;
 	private String phoneNumber;
 	private String email;
-	private UserType userType;
-	private Park park;
+	private int userTypeId;
+	private int parkId;
 
 	public User(){}
 
 	public User(int id, String login, char[] password,
 				String firstName, String lastName, Date dateOfBirth,
-				String phoneNumber, String email, UserType userType, Park park) {
+				String phoneNumber, String email, int userTypeId, int parkId) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
@@ -33,8 +33,8 @@ public class User implements Serializable {
 		this.dateOfBirth = dateOfBirth;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
-		this.userType = userType;
-		this.park = park;
+		this.userTypeId = userTypeId;
+		this.parkId = parkId;
 	}
 
 	public int getId() {
@@ -101,45 +101,42 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public UserType getUserType() {
-		return userType;
+	public int getUserTypeId() {
+		return userTypeId;
 	}
 
-	public void setUserType(UserType userType) {
-		this.userType = userType;
+	public void setUserTypeId(int userTypeId) {
+		this.userTypeId = userTypeId;
 	}
 
-	public Park getPark() {
-		return park;
+	public int getParkId() {
+		return parkId;
 	}
 
-	public void setPark(Park park) {
-		this.park = park;
+	public void setParkId(int parkId) {
+		this.parkId = parkId;
 	}
 
 	@Override
-	public boolean equals(Object other) {
-		if (this == other) return true;
-		if (other == null || getClass() != other.getClass()) return false;
-		User user = (User) other;
-
-
-
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
 		return id == user.id &&
+				userTypeId == user.userTypeId &&
+				parkId == user.parkId &&
 				Objects.equals(login, user.login) &&
 				Arrays.equals(password, user.password) &&
 				Objects.equals(firstName, user.firstName) &&
 				Objects.equals(lastName, user.lastName) &&
 				Objects.equals(dateOfBirth, user.dateOfBirth) &&
 				Objects.equals(phoneNumber, user.phoneNumber) &&
-				Objects.equals(email, user.email) &&
-				userType == user.userType &&
-				Objects.equals(park, user.park);
+				Objects.equals(email, user.email);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = Objects.hash(id, login, firstName, lastName, dateOfBirth, phoneNumber, email, userType, park);
+		int result = Objects.hash(id, login, firstName, lastName, dateOfBirth, phoneNumber, email, userTypeId, parkId);
 		result = 31 * result + Arrays.hashCode(password);
 		return result;
 	}
@@ -155,8 +152,8 @@ public class User implements Serializable {
 				", dateOfBirth=" + dateOfBirth +
 				", phoneNumber='" + phoneNumber + '\'' +
 				", email='" + email + '\'' +
-				", userType=" + userType +
-				", park=" + park +
+				", userTypeId=" + userTypeId +
+				", parkId=" + parkId +
 				']';
 	}
 }

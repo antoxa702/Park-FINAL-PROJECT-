@@ -78,7 +78,7 @@ public class UserBuilder {
 
 	public UserBuilder withUserType(UserType userType) {
 		if (validator.validateUserType(userType)){
-			user.setUserType(userType);
+			user.setUserTypeId(userType);
 		} else {
 			LOGGER.warn("WARN : UserType is incorrect");
 		}
@@ -86,7 +86,7 @@ public class UserBuilder {
 	}
 	public UserBuilder withPark(Park park) {
 		if (validator.validatePark(park)){
-			user.setPark(park);
+			user.setParkId(park);
 		} else{
 			LOGGER.warn("WARN : Park is incorrect");
 		}
