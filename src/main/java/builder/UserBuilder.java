@@ -5,8 +5,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import util.validator.UserFieldsValidator;
 
-import java.util.Date;
-
 public class UserBuilder {
 
 	private static final Logger LOGGER = LogManager.getLogger(UserBuilder.class);
@@ -48,11 +46,6 @@ public class UserBuilder {
 
 	public UserBuilder withLastName(String lastName) {
 		user.setLastName(lastName);
-		return this;
-	}
-
-	public UserBuilder withDateOfBirth(Date dateOfBirth) {
-		user.setDateOfBirth(dateOfBirth);
 		return this;
 	}
 

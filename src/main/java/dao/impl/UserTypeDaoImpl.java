@@ -215,7 +215,7 @@ public enum UserTypeDaoImpl implements UserTypeDao {
 	}
 
 	/**
-	 * Finds a record in table user_type by matching userPark ID on entity
+	 * Finds a record in table user_type by matching userType ID on entity
 	 * and deletes from table this record.
 	 * Returns true if deleted 1 row, false - if none have been deleted.
 	 */

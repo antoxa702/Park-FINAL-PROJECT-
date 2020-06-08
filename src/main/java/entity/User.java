@@ -2,7 +2,6 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -14,7 +13,6 @@ public class User implements Serializable {
 	private char[] password;
 	private String firstName;
 	private String lastName;
-	private Date dateOfBirth;
 	private String phoneNumber;
 	private String email;
 	private int userTypeId;
@@ -23,14 +21,13 @@ public class User implements Serializable {
 	public User(){}
 
 	public User(int id, String login, char[] password,
-				String firstName, String lastName, Date dateOfBirth,
+				String firstName, String lastName,
 				String phoneNumber, String email, int userTypeId, int parkId) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.userTypeId = userTypeId;
@@ -77,14 +74,6 @@ public class User implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -129,14 +118,13 @@ public class User implements Serializable {
 				Arrays.equals(password, user.password) &&
 				Objects.equals(firstName, user.firstName) &&
 				Objects.equals(lastName, user.lastName) &&
-				Objects.equals(dateOfBirth, user.dateOfBirth) &&
 				Objects.equals(phoneNumber, user.phoneNumber) &&
 				Objects.equals(email, user.email);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = Objects.hash(id, login, firstName, lastName, dateOfBirth, phoneNumber, email, userTypeId, parkId);
+		int result = Objects.hash(id, login, firstName, lastName, phoneNumber, email, userTypeId, parkId);
 		result = 31 * result + Arrays.hashCode(password);
 		return result;
 	}
@@ -149,7 +137,6 @@ public class User implements Serializable {
 				", password=" + Arrays.toString(password) +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
-				", dateOfBirth=" + dateOfBirth +
 				", phoneNumber='" + phoneNumber + '\'' +
 				", email='" + email + '\'' +
 				", userTypeId=" + userTypeId +

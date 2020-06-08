@@ -1,9 +1,10 @@
 package runner;
 
 import dao.impl.UserTypeDaoImpl;
-import entity.UserType;
 import exception.CommandException;
-import exception.DAOException;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Do some tests during writing classes, like testing poll, peek methods and else..
@@ -11,7 +12,7 @@ import exception.DAOException;
  */
 public class Runner {
 
-	public static void main(String[] args) throws CommandException {
+	public static void main(String[] args) throws CommandException, NoSuchAlgorithmException {
 
 		UserTypeDaoImpl userTypeDao = UserTypeDaoImpl.INSTANCE;
 //
@@ -30,13 +31,57 @@ public class Runner {
 //			e.printStackTrace();
 //		}
 
-		UserType userType = null;
-		try{
-			userType = userTypeDao.getById(5);
-		} catch (DAOException e) {
-			e.printStackTrace();
+//		UserType userType = null;
+//		try{
+//			userType = userTypeDao.getById(5);
+//		} catch (DAOException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(userType);
+		String password = "password";
+		String passwordCheck = "password";
+
+		MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
+		byte[] bytes = sha1.digest(password.getBytes());
+		byte[] bytesCheck = sha1.digest(passwordCheck.getBytes());
+
+		System.out.println("password = [" + password + "]");
+		System.out.println("passwordCheck = [" + passwordCheck + "]");
+
+		for (byte b : bytes) {
+			System.out.print(b);
 		}
-		System.out.println(userType);
+		System.out.println("");
+
+		for (byte b : bytesCheck) {
+			System.out.print(b);
+		}
+		System.out.println("");
+
+		StringBuilder password1 = new StringBuilder();
+		StringBuilder password2 = new StringBuilder();
+		if(bytes.length != bytesCheck.length) {
+			System.out.println("FALSE : passwords have different length");
+		} else{
+			for (int i = 0; i < bytes.length; i++) {
+				password1.append(bytes[i]);
+				password2.append(bytesCheck[i]);
+			}
+
+			if(password1.toString().equals(password2.toString())){
+				System.out.println("TRUE : passwords are equal");
+			}else {
+				System.out.println("FALSE : passwords are not equal");
+			}
+
+		}
+
+
+
+
+
+
+
 
 
 
