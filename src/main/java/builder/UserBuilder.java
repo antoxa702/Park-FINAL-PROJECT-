@@ -94,5 +94,4 @@ public class UserBuilder {
 	public User build(){
 		return this.user;
 	}
-
 }
