@@ -81,4 +81,13 @@ public class UserFieldsValidator {
 		LOGGER.debug("DEBUG : not null UserType object");
 		return true;
 	}
+
+	public boolean validateId(int id) {
+		if (id >= 0) {
+			LOGGER.debug("DEBUG : ID is correct");
+			return true;
+		}
+		LOGGER.warn("WARN : ID is incorrect");
+		return false;
+	}
 }
