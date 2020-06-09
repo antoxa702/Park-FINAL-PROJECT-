@@ -19,7 +19,11 @@ public class UserBuilder {
 	}
 
 	public UserBuilder withId(int id) {
-		user.setId(id);
+		if (validator.validateId(id)) {
+			user.setId(id);
+		} else {
+			LOGGER.warn("WARN : ID is incorrect");
+		}
 		return this;
 	}
 
@@ -69,7 +73,7 @@ public class UserBuilder {
 		return this;
 	}
 
-	public UserBuilder withUserTypeId(UserType userType) {
+	public UserBuilder withUserType(UserType userType) {
 		if (validator.validateUserType(userType)){
 			user.setUserType(userType);
 		} else {
