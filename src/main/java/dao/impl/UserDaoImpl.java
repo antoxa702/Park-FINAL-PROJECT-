@@ -263,15 +263,15 @@ public enum UserDaoImpl implements UserDao {
 			statement.setNull(6, Types.NULL);
 		}
 
-		if (validator.validateId(user.getParkId())) {
-			statement.setInt(7, user.getParkId());
+		if (validator.validateId(user.getPark())) {
+			statement.setInt(7, user.getPark());
 		} else {
 			LOGGER.warn("WARN : parkId is incorrect");
 			statement.setNull(7, Types.NULL);
 		}
 
-		if (validator.validateId(user.getUserTypeId())) {
-			statement.setInt(8, user.getUserTypeId());
+		if (validator.validateId(user.getUserType())) {
+			statement.setInt(8, user.getUserType());
 		} else {
 			LOGGER.warn("WARN : userTypeId is incorrect");
 			statement.setNull(8, Types.NULL);
