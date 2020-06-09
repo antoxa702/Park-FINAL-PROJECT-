@@ -5,6 +5,7 @@ import exception.CommandException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /**
  * Do some tests during writing classes, like testing poll, peek methods and else..
@@ -75,6 +76,20 @@ public class Runner {
 			}
 
 		}
+
+//		UserFieldsValidator validator = new UserFieldsValidator();
+//
+//		if (!StringUtils.isNullOrEmpty("anton") && validator.validateLogin("anton")) {
+//			System.out.println("");;
+//		} else {
+//			LOGGER.warn("WARN : login is null or incorrect");
+//			//statement.setNull(1, Types.NULL);
+//		}
+
+		char[] pass = {'a', 'n' , 't' ,'o' ,'n'};
+		System.out.println(Arrays.toString(pass));
+
+
 
 
 

@@ -58,5 +58,20 @@ public class DbInitValues {
 	public static final String TABLE_APPLICATION_STATUS_ID = "id";
 	public static final String TABLE_APPLICATION_STATUS_NAME = "status_name";
 
+	/**
+	 * Next Strings are used for identify column names at database tables
+	 *
+	 *  ------ table user_info ------
+	 */
+	public static final String TABLE_USER_INFO_ID = "id";
+	public static final String TABLE_USER_INFO_LOGIN = "login";
+	public static final String TABLE_USER_INFO_PASSWORD = "password";
+	public static final String TABLE_USER_INFO_FIRST_NAME = "first_name";
+	public static final String TABLE_USER_INFO_LAST_NAME = "last_name";
+	public static final String TABLE_USER_INFO_PHONE_NUMBER = "phone_number";
+	public static final String TABLE_USER_INFO_EMAIL = "email";
+	public static final String TABLE_USER_INFO_USER_TYPE_ID = "User_type_id";
+	public static final String TABLE_USER_INFO_PARK_ID = "Park_id";
+
 			
 }

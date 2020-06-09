@@ -1,7 +1,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -10,7 +9,7 @@ public class User implements Serializable {
 
 	private int id;
 	private String login;
-	private char[] password;
+	private String password;
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
@@ -20,7 +19,7 @@ public class User implements Serializable {
 
 	public User(){}
 
-	public User(int id, String login, char[] password,
+	public User(int id, String login, String password,
 				String firstName, String lastName,
 				String phoneNumber, String email, int userTypeId, int parkId) {
 		this.id = id;
@@ -50,11 +49,11 @@ public class User implements Serializable {
 		this.login = login;
 	}
 
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -115,7 +114,7 @@ public class User implements Serializable {
 				userTypeId == user.userTypeId &&
 				parkId == user.parkId &&
 				Objects.equals(login, user.login) &&
-				Arrays.equals(password, user.password) &&
+				Objects.equals(password, user.password) &&
 				Objects.equals(firstName, user.firstName) &&
 				Objects.equals(lastName, user.lastName) &&
 				Objects.equals(phoneNumber, user.phoneNumber) &&
@@ -124,8 +123,7 @@ public class User implements Serializable {
 
 	@Override
 	public int hashCode() {
-		int result = Objects.hash(id, login, firstName, lastName, phoneNumber, email, userTypeId, parkId);
-		result = 31 * result + Arrays.hashCode(password);
+		int result = Objects.hash(id, login, firstName, lastName, phoneNumber, email, userTypeId, parkId, password);
 		return result;
 	}
 
@@ -134,7 +132,7 @@ public class User implements Serializable {
 		return "User[" +
 				"id=" + id +
 				", login='" + login + '\'' +
-				", password=" + Arrays.toString(password) +
+				", password=" + password +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
 				", phoneNumber='" + phoneNumber + '\'' +

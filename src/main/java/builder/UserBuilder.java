@@ -32,7 +32,7 @@ public class UserBuilder {
 
 	public UserBuilder withPassword(String password) {
 		if (validator.validatePassword(password)){
-			user.setPassword(password.toCharArray());
+			user.setPassword(password);
 		} else{
 			LOGGER.warn("WARN : Password contains incorrect symbols");
 		}

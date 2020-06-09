@@ -1,5 +1,6 @@
 package dao.impl;
 
+import builder.UserBuilder;
 import com.mysql.cj.util.StringUtils;
 import dao.UserDao;
 import entity.User;
@@ -10,10 +11,11 @@ import org.apache.logging.log4j.Logger;
 import pool.ConnectionPool;
 import util.validator.UserFieldsValidator;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import static util.DbInitValues.*;
 
 public enum UserDaoImpl implements UserDao {
 
@@ -22,45 +24,153 @@ public enum UserDaoImpl implements UserDao {
 
 	private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
 	private static final String SQL_STATEMENT_GET_ALL_USER_INFO = "SELECT * FROM user_info;";
-	private static final String SQL_STATEMENT_INSERT_USER_INFO = "INSERT INTO user_info (name, area) VALUES (?,?);";
+	private static final String SQL_STATEMENT_GET_BY_PARK_ID_USER_INFO = "SELECT * FROM user_info WHERE user_info.Park_id=?;";
+	private static final String SQL_STATEMENT_GET_BY_USER_TYPE_ID_USER_INFO = "SELECT * FROM user_info WHERE user_info.User_type_id=?;";
 	private static final String SQL_STATEMENT_GET_BY_ID_USER_INFO = "SELECT * FROM user_info WHERE id=?;";
-	private static final String SQL_STATEMENT_GET_BY_LOGIN_USER_INFO = "SELECT * FROM user_info WHERE login=?;";
+	private static final String SQL_STATEMENT_GET_BY_LOGIN_USER_INFO = "SELECT * FROM user_info WHERE user_info.login=?;";
+	private static final String SQL_STATEMENT_INSERT_USER_INFO = "INSERT INTO user_info (login, password, first_name," +
+			"last_name, phone_number, email, Park_id, User_type_id) VALUES (?,?,?,?,?,?,?,?);";
 	private static final String SQL_STATEMENT_UPDATE_USER_INFO = "UPDATE user_info SET user_info.login=?, " +
 			"user_info.password=?, user_info.first_name=?, user_info.last_name=?, user_info.phone_number=?, " +
-			"user_info.email=?, user_info.User_type_id=?, user_info.Park_id=? WHERE user_info.id=?;";
+			"user_info.email=?, user_info.Park_id=?, user_info.User_type_id=? WHERE user_info.id=?;";
 	private static final String SQL_STATEMENT_DELETE_USER_INFO = "DELETE FROM user_info WHERE user_info.id=?;";
-	private static final String SQL_STATEMENT_GET_BY_PARK_ID_USER_INFO = "SELECT * FROM user_info WHERE Park_id=?;";
-	private static final String SQL_STATEMENT_GET_BY_USER_TYPE_ID_USER_INFO = "SELECT * FROM user_info WHERE User_type_id=?;";
 
-
+	/**
+	 * @return List<User> according to the database Park table user_info
+	 * @throws DAOException .
+	 */
 	@Override
 	public List<User> getAllUsers() throws DAOException {
-		return null;
+		List<User> userList;
+		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+			PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_GET_ALL_USER_INFO)) {
+
+			ResultSet resultSet = statement.executeQuery();
+			userList = buildUserList(resultSet);
+
+		} catch (SQLException e) {
+			LOGGER.error("ERROR : problems with getting records from table user_info");
+			throw new DAOException("SQLException while getting records from table user_info", e);
+		} catch (ConnectionPoolException e1) {
+			LOGGER.error("ERROR : problems with getting records from table user_info");
+			throw new DAOException("ConnectionPoolException while getting records from table user_info", e1);
+		}
+		return userList;
 	}
 
+	/**
+	 * @param login - login
+	 * @return new User;
+	 * @throws DAOException .
+	 */
 	@Override
 	public User getByLogin(String login) throws DAOException {
-		return null;
+		List<User> userList;
+		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+			PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_GET_BY_LOGIN_USER_INFO)) {
+			statement.setString(1, login);
+			ResultSet resultSet = statement.executeQuery();
+			userList = buildUserList(resultSet);
+
+			if (userList.size() == 0) {
+				LOGGER.warn("WARN : Can't find user by login");
+				return null;
+			}
+
+		} catch (SQLException e) {
+			LOGGER.error("ERROR : problems with getting records from table user_info");
+			throw new DAOException("SQLException while getting records from table user_info", e);
+		} catch (ConnectionPoolException e1) {
+			LOGGER.error("ERROR : problems with getting records from table user_info");
+			throw new DAOException("ConnectionPoolException while getting records from table user_info", e1);
+		}
+		return userList.get(0);
 	}
 
+	/**
+	 * @param parkId
+	 * @return List<User> userList by Park_id
+	 * @throws DAOException .
+	 */
 	@Override
 	public List<User> getUsersByParkId(int parkId) throws DAOException {
-		return null;
+		return getUsersById(parkId, SQL_STATEMENT_GET_BY_PARK_ID_USER_INFO);
 	}
 
+	/**
+	 * @param userTypeId
+	 * @return userList by userTypeId
+	 * @throws DAOException .
+	 */
 	@Override
 	public List<User> getUsersByUserTypeId(int userTypeId) throws DAOException {
-		return null;
+		return getUsersById(userTypeId, SQL_STATEMENT_GET_BY_USER_TYPE_ID_USER_INFO);
 	}
 
-	@Override
-	public void add(User entity) throws DAOException {
+	/**
+	 * @param id - the identifying id
+	 * @param sqlStatement - to get resultSet
+	 * @return userList
+	 * @throws DAOException .
+	 */
+	private List<User> getUsersById(int id, String sqlStatement) throws DAOException {
+		List<User> userList;
+		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sqlStatement)) {
+			statement.setInt(1,id);
+			ResultSet resultSet = statement.executeQuery();
+			userList = buildUserList(resultSet);
 
+		} catch (SQLException e) {
+			LOGGER.error("ERROR : problems with getting records from table user_info");
+			throw new DAOException("SQLException while getting records from table user_info", e);
+		} catch (ConnectionPoolException e1) {
+			LOGGER.error("ERROR : problems with getting records from table user_info");
+			throw new DAOException("ConnectionPoolException while getting records from table user_info", e1);
+		}
+		return userList;
+	}
+
+	/**
+	 * @param user - to fill table user_info with a new record
+	 * @throws DAOException .
+	 */
+	@Override
+	public void add(User user) throws DAOException {
+		if (user == null) {
+			LOGGER.error("ERROR : user is null");
+			throw new DAOException("ERROR : can't add user - user is null");
+		}
+
+		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+			PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_INSERT_USER_INFO)) {
+
+			fillInStatement(user, statement);
+
+			if (statement.executeUpdate() == 1) {
+				LOGGER.debug("DEBUG : record added successfully");
+			} else {
+				LOGGER.warn("WARN : record haven't been added");
+				throw new SQLException("ERROR : None or few records have been inserted into user_info");
+			}
+
+		} catch (SQLException e) {
+			LOGGER.error("ERROR : problems with adding a record into table user_info");
+			throw new DAOException("SQLException while adding a record into table user_info", e);
+		} catch (ConnectionPoolException e1) {
+			LOGGER.error("ERROR : problems with adding a record into table user_info");
+			throw new DAOException("ConnectionPoolException while adding a record into table user_info", e1);
+		}
 	}
 
 	@Override
 	public User getById(int id) throws DAOException {
-		return null;
+		List<User> userList = getUsersById(id,SQL_STATEMENT_GET_BY_ID_USER_INFO);
+		if (userList.size() == 0) {
+			LOGGER.warn("WARN : Can't find user by id");
+			return null;
+		}
+		return userList.get(0);
 	}
 
 	@Override
@@ -75,37 +185,104 @@ public enum UserDaoImpl implements UserDao {
 		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
 			PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_UPDATE_USER_INFO)) {
 
-			if (!StringUtils.isNullOrEmpty(user.getLogin())) {
-				statement.setString(1, user.getLogin());
+			fillInStatement(user, statement);
+
+			if (validator.validateId(user.getId())) {
+				statement.setInt(9, user.getId());
 			} else {
-				LOGGER.warn("WARN : login is null");
-				//statement.setNull(1, Types.NULL);
+				LOGGER.warn("WARN : id is incorrect");
+				statement.setNull(9, Types.NULL);
 			}
 
-
-			statement.setInt(2, user.getId());
 			updatedRowsCount = statement.executeUpdate();
 
 			if (updatedRowsCount == 1) {
 				LOGGER.debug("DEBUG : record updated successful");
 			} else {
 				LOGGER.warn("WARN : record haven't been updated");
-				throw new SQLException("ERROR : None records have been updated into user_type");
+				throw new SQLException("ERROR : None records have been updated into user_info");
 			}
 
 		} catch (SQLException e) {
-			LOGGER.error("ERROR : problems with updating a record into table user_type");
-			throw new DAOException("SQLException while updating a record into table user_type", e);
+			LOGGER.error("ERROR : problems with updating a record into table user_info");
+			throw new DAOException("SQLException while updating a record into table user_info", e);
 		} catch (ConnectionPoolException e1) {
-			LOGGER.error("ERROR : problems with updating a record into table user_type");
-			throw new DAOException("ConnectionPoolException while updating a record into table user_type", e1);
+			LOGGER.error("ERROR : problems with updating a record into table user_info");
+			throw new DAOException("ConnectionPoolException while updating a record into table user_info", e1);
 		}
 
 		return updatedRowsCount;
 	}
 
+	/**
+	 * Saves from duplicate code at ADD and UPDATE methods
+	 * @param user - entity
+	 * @param statement - statement
+	 * @throws SQLException .
+	 */
+	private void fillInStatement(User user, PreparedStatement statement) throws SQLException {
+		if (validator.validateLogin(user.getLogin())) {
+			statement.setString(1, user.getLogin());
+		} else {
+			LOGGER.warn("WARN : login is incorrect");
+			statement.setNull(1, Types.NULL);
+		}
 
+		if (validator.validatePassword(user.getPassword())) {
+			statement.setString(2, user.getPassword());
+		} else {
+			LOGGER.warn("WARN : password is incorrect");
+			statement.setNull(2, Types.NULL);
+		}
 
+		if (!StringUtils.isNullOrEmpty(user.getFirstName())) {
+			statement.setString(3, user.getFirstName());
+		} else {
+			LOGGER.warn("WARN : firstName is null or incorrect");
+			statement.setNull(3, Types.NULL);
+		}
+
+		if (!StringUtils.isNullOrEmpty(user.getLastName())) {
+			statement.setString(4, user.getLastName());
+		} else {
+			LOGGER.warn("WARN : lastName is null or incorrect");
+			statement.setNull(4, Types.NULL);
+		}
+
+		if (validator.validatePhoneNumber(user.getPhoneNumber())) {
+			statement.setString(5, user.getPhoneNumber());
+		} else {
+			LOGGER.warn("WARN : phoneNumber is incorrect");
+			statement.setNull(5, Types.NULL);
+		}
+
+		if (validator.validateEmail(user.getEmail())) {
+			statement.setString(6, user.getEmail());
+		} else {
+			LOGGER.warn("WARN : email is incorrect");
+			statement.setNull(6, Types.NULL);
+		}
+
+		if (validator.validateId(user.getParkId())) {
+			statement.setInt(7, user.getParkId());
+		} else {
+			LOGGER.warn("WARN : parkId is incorrect");
+			statement.setNull(7, Types.NULL);
+		}
+
+		if (validator.validateId(user.getUserTypeId())) {
+			statement.setInt(8, user.getUserTypeId());
+		} else {
+			LOGGER.warn("WARN : userTypeId is incorrect");
+			statement.setNull(8, Types.NULL);
+		}
+	}
+
+	/**
+	 * @param user - entity, what matches to the user_info record (or not).
+	 * @return true if record have been deleted successfully, false - if something goes wrong.
+	 * @throws DAOException .
+	 */
 	@Override
 	public boolean delete(User user) throws DAOException {
 		if (user == null) {
@@ -151,6 +328,44 @@ public enum UserDaoImpl implements UserDao {
 	 */
 	@Override
 	public int updateById(int id) throws DAOException {
-		throw new UnsupportedOperationException("Operation doesn't supports with user_type entity");
+		throw new UnsupportedOperationException("Operation doesn't supports with user_info entity");
 	}
+
+	/**
+	 *
+	 * @param resultSet to create userList
+	 * @return userList
+	 * @throws SQLException .
+	 */
+	private List<User> buildUserList(ResultSet resultSet) throws SQLException {
+		List <User> userList = new ArrayList<>();
+		int id;
+		int parkId;
+		int userTypeId;
+		String login;
+		String password;
+		String firstName;
+		String lastName;
+		String phoneNumber;
+		String email;
+
+		while(resultSet.next()) {
+			id = resultSet.getInt(TABLE_USER_INFO_ID);
+			login = resultSet.getString(TABLE_USER_INFO_LOGIN);
+			password = resultSet.getString(TABLE_USER_INFO_PASSWORD);
+			firstName = resultSet.getString(TABLE_USER_INFO_FIRST_NAME);
+			lastName = resultSet.getString(TABLE_USER_INFO_LAST_NAME);
+			phoneNumber = resultSet.getString(TABLE_USER_INFO_PHONE_NUMBER);
+			email = resultSet.getString(TABLE_USER_INFO_EMAIL);
+			parkId = resultSet.getInt(TABLE_USER_INFO_PARK_ID);
+			userTypeId = resultSet.getInt(TABLE_USER_INFO_USER_TYPE_ID);
+			userList.add(new UserBuilder().withId(id).withLogin(login).withPassword(password).
+					withFirstName(firstName).withLastName(lastName).withPhoneNumber(phoneNumber).withEmail(email).
+					withParkId(parkId).withUserTypeId(userTypeId).build());
+		}
+		return userList;
+	}
+
+	//TODO check USER DAO and OTHERS DAO. Fill in the tables  about status? types and so on...
+
 }
