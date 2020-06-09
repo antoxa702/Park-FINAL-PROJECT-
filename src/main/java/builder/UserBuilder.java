@@ -1,6 +1,8 @@
 package builder;
 
+import entity.Park;
 import entity.User;
+import entity.UserType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import util.validator.UserFieldsValidator;
@@ -67,19 +69,19 @@ public class UserBuilder {
 		return this;
 	}
 
-	public UserBuilder withUserTypeId(int userTypeId) {
-		if (validator.validateId(userTypeId)){
-			user.setUserType(userTypeId);
+	public UserBuilder withUserTypeId(UserType userType) {
+		if (validator.validateUserType(userType)){
+			user.setUserType(userType);
 		} else {
-			LOGGER.warn("WARN : UserTypeId is incorrect");
+			LOGGER.warn("WARN : UserType is incorrect");
 		}
 		return this;
 	}
-	public UserBuilder withParkId(int parkId) {
-		if (validator.validateId(parkId)){
-			user.setPark(parkId);
+	public UserBuilder withPark(Park park) {
+		if (validator.validatePark(park)){
+			user.setPark(park);
 		} else{
-			LOGGER.warn("WARN : Park ID is incorrect");
+			LOGGER.warn("WARN : Park is incorrect");
 		}
 		return this;
 	}
