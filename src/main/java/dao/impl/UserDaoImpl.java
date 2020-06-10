@@ -3,13 +3,15 @@ package dao.impl;
 import builder.UserBuilder;
 import com.mysql.cj.util.StringUtils;
 import dao.UserDao;
+import entity.Park;
 import entity.User;
+import entity.UserType;
 import exception.ConnectionPoolException;
 import exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pool.ConnectionPool;
-import util.validator.UserFieldsValidator;
+import util.validator.FieldsValidator;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +22,9 @@ import static util.DbInitValues.*;
 public enum UserDaoImpl implements UserDao {
 
 	INSTANCE;
-	UserFieldsValidator validator = new UserFieldsValidator();
+	FieldsValidator validator = new FieldsValidator();
+	UserTypeDaoImpl userTypeDao = UserTypeDaoImpl.INSTANCE;
+	ParkDaoImpl parkDao = ParkDaoImpl.INSTANCE;
 
 	private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
 	private static final String SQL_STATEMENT_GET_ALL_USER_INFO = "SELECT * FROM user_info;";
@@ -88,7 +92,7 @@ public enum UserDaoImpl implements UserDao {
 	}
 
 	/**
-	 * @param parkId
+	 * @param parkId .
 	 * @return List<User> userList by Park_id
 	 * @throws DAOException .
 	 */
@@ -98,7 +102,7 @@ public enum UserDaoImpl implements UserDao {
 	}
 
 	/**
-	 * @param userTypeId
+	 * @param userTypeId .
 	 * @return userList by userTypeId
 	 * @throws DAOException .
 	 */
@@ -144,9 +148,7 @@ public enum UserDaoImpl implements UserDao {
 
 		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
 			PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_INSERT_USER_INFO)) {
-
 			fillInStatement(user, statement);
-
 			if (statement.executeUpdate() == 1) {
 				LOGGER.debug("DEBUG : record added successfully");
 			} else {
@@ -180,7 +182,7 @@ public enum UserDaoImpl implements UserDao {
 			throw new DAOException("ERROR : can't update table user_info by required user");
 		}
 
-		int updatedRowsCount = 0;
+		int updatedRowsCount;
 
 		try(Connection connection = ConnectionPool.INSTANCE.getConnection();
 			PreparedStatement statement = connection.prepareStatement(SQL_STATEMENT_UPDATE_USER_INFO)) {
@@ -263,15 +265,15 @@ public enum UserDaoImpl implements UserDao {
 			statement.setNull(6, Types.NULL);
 		}
 
-		if (validator.validateId(user.getPark())) {
-			statement.setInt(7, user.getPark());
+		if (validator.validateId(user.getPark().getId())) {
+			statement.setInt(7, user.getPark().getId());
 		} else {
 			LOGGER.warn("WARN : parkId is incorrect");
 			statement.setNull(7, Types.NULL);
 		}
 
-		if (validator.validateId(user.getUserType())) {
-			statement.setInt(8, user.getUserType());
+		if (validator.validateId(user.getUserType().getId())) {
+			statement.setInt(8, user.getUserType().getId());
 		} else {
 			LOGGER.warn("WARN : userTypeId is incorrect");
 			statement.setNull(8, Types.NULL);
@@ -293,7 +295,7 @@ public enum UserDaoImpl implements UserDao {
 	}
 
 	/**
-	 *  Finds a record in table user_type by matching userType ID on entity
+	 *  Finds a record in table user_type by matching user ID on entity
 	 * 	and deletes from table this record.
 	 * 	Returns true if deleted 1 row, false - if none have been deleted.
 	 * @param id >= 0
@@ -324,24 +326,22 @@ public enum UserDaoImpl implements UserDao {
 	 * Throws UnsupportedOperationException
 	 * @param id > 0
 	 * @return nothing
-	 * @throws DAOException .
 	 */
 	@Override
-	public int updateById(int id) throws DAOException {
+	public int updateById(int id) {
 		throw new UnsupportedOperationException("Operation doesn't supports with user_info entity");
 	}
 
 	/**
-	 *
 	 * @param resultSet to create userList
 	 * @return userList
 	 * @throws SQLException .
 	 */
-	private List<User> buildUserList(ResultSet resultSet) throws SQLException {
+	private List<User> buildUserList(ResultSet resultSet) throws SQLException, DAOException {
 		List <User> userList = new ArrayList<>();
 		int id;
-		int parkId;
-		int userTypeId;
+		Park park;
+		UserType userType;
 		String login;
 		String password;
 		String firstName;
@@ -357,11 +357,11 @@ public enum UserDaoImpl implements UserDao {
 			lastName = resultSet.getString(TABLE_USER_INFO_LAST_NAME);
 			phoneNumber = resultSet.getString(TABLE_USER_INFO_PHONE_NUMBER);
 			email = resultSet.getString(TABLE_USER_INFO_EMAIL);
-			parkId = resultSet.getInt(TABLE_USER_INFO_PARK_ID);
-			userTypeId = resultSet.getInt(TABLE_USER_INFO_USER_TYPE_ID);
+			park = parkDao.getById(resultSet.getInt(TABLE_USER_INFO_PARK_ID));
+			userType = userTypeDao.getById(resultSet.getInt(TABLE_USER_INFO_USER_TYPE_ID));
 			userList.add(new UserBuilder().withId(id).withLogin(login).withPassword(password).
 					withFirstName(firstName).withLastName(lastName).withPhoneNumber(phoneNumber).withEmail(email).
-					withParkId(parkId).withUserTypeId(userTypeId).build());
+					withPark(park).withUserType(userType).build());
 		}
 		return userList;
 	}

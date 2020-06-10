@@ -5,14 +5,14 @@ import entity.User;
 import entity.UserType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.validator.UserFieldsValidator;
+import util.validator.FieldsValidator;
 
 public class UserBuilder {
 
 	private static final Logger LOGGER = LogManager.getLogger(UserBuilder.class);
 
 	private User user;
-	UserFieldsValidator validator = new UserFieldsValidator();
+	FieldsValidator validator = new FieldsValidator();
 
 	public UserBuilder(){
 		user = new User();

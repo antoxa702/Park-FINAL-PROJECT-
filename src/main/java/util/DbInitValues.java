@@ -73,5 +73,21 @@ public class DbInitValues {
 	public static final String TABLE_USER_INFO_USER_TYPE_ID = "User_type_id";
 	public static final String TABLE_USER_INFO_PARK_ID = "Park_id";
 
-			
+	/**
+	 * Next Strings are used for identify column names at database tables
+	 *
+	 *  ------ table application ------
+	 */
+	public static final String TABLE_APPLICATION_ID = "id";
+	public static final String TABLE_APPLICATION_START_DATE = "start_date";
+	public static final String TABLE_APPLICATION_END_DATE = "end_date";
+	public static final String TABLE_APPLICATION_IS_APPROVED = "is_approved";
+	public static final String TABLE_APPLICATION_OWNER_COMMENT = "owner_comment";
+	public static final String TABLE_APPLICATION_EMPLOYEE_COMMENT = "employee_comment";
+	public static final String TABLE_APPLICATION_WORK_TYPE_ID = "Type_of_work_id";
+	public static final String TABLE_APPLICATION_PLANT_TYPE_ID = "Plants_type_id";
+	public static final String TABLE_APPLICATION_PARK_ID = "Park_id";
+	public static final String TABLE_APPLICATION_APL_STATUS_ID = "Status_id";
+	public static final String TABLE_APPLICATION_EMPLOYEE_ID = "Employee_id";
+	public static final String TABLE_APPLICATION_OWNER_ID = "Owner_id";
 }
