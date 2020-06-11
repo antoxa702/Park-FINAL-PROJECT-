@@ -26,7 +26,7 @@ public enum ApplicationStatusDaoImpl implements ApplicationStatusDao {
 	private static final String SQL_STATEMENT_INSERT_APPLICATION_STATUS = "INSERT INTO application_status (status_name) VALUES (?);";
 	private static final String SQL_STATEMENT_GET_BY_ID_APPLICATION_STATUS = "SELECT * FROM application_status WHERE id=?;";
 	private static final String SQL_STATEMENT_GET_BY_NAME_APPLICATION_STATUS = "SELECT * FROM application_status WHERE status_name=?;";
-	private static final String SQL_STATEMENT_UPDATE_APPLICATION_STATUS = "UPDATE application_status SET application_status.status_name=? WHERE work_type.id=?;";
+	private static final String SQL_STATEMENT_UPDATE_APPLICATION_STATUS = "UPDATE application_status SET application_status.status_name=? WHERE application_status.id=?;";
 	private static final String SQL_STATEMENT_DELETE_APPLICATION_STATUS = "DELETE FROM application_status WHERE application_status.id=?;";
 
 	/**

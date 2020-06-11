@@ -1,11 +1,8 @@
 package runner;
 
-import dao.impl.UserTypeDaoImpl;
 import exception.CommandException;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 /**
  * Do some tests during writing classes, like testing poll, peek methods and else..
@@ -15,7 +12,7 @@ public class Runner {
 
 	public static void main(String[] args) throws CommandException, NoSuchAlgorithmException {
 
-		UserTypeDaoImpl userTypeDao = UserTypeDaoImpl.INSTANCE;
+		//UserTypeDaoImpl userTypeDao = UserTypeDaoImpl.INSTANCE;
 //
 //		UserType userType = new UserTypeBuilder().withName("owner").build();
 //		try{
@@ -39,43 +36,43 @@ public class Runner {
 //			e.printStackTrace();
 //		}
 //		System.out.println(userType);
-		String password = "password";
-		String passwordCheck = "password";
-
-		MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
-		byte[] bytes = sha1.digest(password.getBytes());
-		byte[] bytesCheck = sha1.digest(passwordCheck.getBytes());
-
-		System.out.println("password = [" + password + "]");
-		System.out.println("passwordCheck = [" + passwordCheck + "]");
-
-		for (byte b : bytes) {
-			System.out.print(b);
-		}
-		System.out.println("");
-
-		for (byte b : bytesCheck) {
-			System.out.print(b);
-		}
-		System.out.println("");
-
-		StringBuilder password1 = new StringBuilder();
-		StringBuilder password2 = new StringBuilder();
-		if(bytes.length != bytesCheck.length) {
-			System.out.println("FALSE : passwords have different length");
-		} else{
-			for (int i = 0; i < bytes.length; i++) {
-				password1.append(bytes[i]);
-				password2.append(bytesCheck[i]);
-			}
-
-			if(password1.toString().equals(password2.toString())){
-				System.out.println("TRUE : passwords are equal");
-			}else {
-				System.out.println("FALSE : passwords are not equal");
-			}
-
-		}
+//		String password = "password";
+//		String passwordCheck = "password";
+//
+//		MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
+//		byte[] bytes = sha1.digest(password.getBytes());
+//		byte[] bytesCheck = sha1.digest(passwordCheck.getBytes());
+//
+//		System.out.println("password = [" + password + "]");
+//		System.out.println("passwordCheck = [" + passwordCheck + "]");
+//
+//		for (byte b : bytes) {
+//			System.out.print(b);
+//		}
+//		System.out.println("");
+//
+//		for (byte b : bytesCheck) {
+//			System.out.print(b);
+//		}
+//		System.out.println("");
+//
+//		StringBuilder password1 = new StringBuilder();
+//		StringBuilder password2 = new StringBuilder();
+//		if(bytes.length != bytesCheck.length) {
+//			System.out.println("FALSE : passwords have different length");
+//		} else{
+//			for (int i = 0; i < bytes.length; i++) {
+//				password1.append(bytes[i]);
+//				password2.append(bytesCheck[i]);
+//			}
+//
+//			if(password1.toString().equals(password2.toString())){
+//				System.out.println("TRUE : passwords are equal");
+//			}else {
+//				System.out.println("FALSE : passwords are not equal");
+//			}
+//
+//		}
 
 //		UserFieldsValidator validator = new UserFieldsValidator();
 //
@@ -85,9 +82,186 @@ public class Runner {
 //			LOGGER.warn("WARN : login is null or incorrect");
 //			//statement.setNull(1, Types.NULL);
 //		}
+//
+//		char[] pass = {'a', 'n' , 't' ,'o' ,'n'};
+//		System.out.println(Arrays.toString(pass));
 
-		char[] pass = {'a', 'n' , 't' ,'o' ,'n'};
-		System.out.println(Arrays.toString(pass));
+		//applicationStatus
+//		ApplicationStatusDaoImpl statusDao = ApplicationStatusDaoImpl.INSTANCE;
+//		ApplicationStatus statusAdd  = null;
+//		ApplicationStatus statusGet  = null;
+//		ApplicationStatus statusUpdate  = null;
+//		ApplicationStatus statusDelete  = null;
+
+//		try {
+//
+//			statusAdd = new ApplicationStatusBuilder().withStatusName("test_status").build();
+//			statusDao.add(statusAdd);
+//			statusGet = statusDao.getByName("В работе");
+//			statusUpdate = statusDao.getByName("test_status");
+//			statusUpdate.setStatusName("test_status_update");
+//			statusDao.update(statusUpdate);
+//			statusDelete = statusDao.getByName("test_status_update");
+//			statusDao.delete(statusDelete);
+//
+//		} catch (DAOException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(statusAdd);
+//		System.out.println(statusGet);
+//		System.out.println(statusUpdate);
+//		System.out.println(statusDelete);
+
+		//userType
+//		UserTypeDaoImpl userTypeDao = UserTypeDaoImpl.INSTANCE;
+//		UserType userTypeAdd = null;
+//		UserType userTypeGet = null;
+//		UserType userTypeUpdate = null;
+//		UserType userTypeDelete = null;
+
+//		try {
+
+//			userTypeAdd = new UserTypeBuilder().withName("test_status").build();
+//			userTypeDao.add(userTypeAdd);
+//			userTypeGet = userTypeDao.getByName("owner");
+//			userTypeUpdate = userTypeDao.getByName("test_status");
+//			userTypeUpdate.setNameType("test_status_update");
+//			userTypeDao.update(userTypeUpdate);
+//			userTypeDelete = userTypeDao.getByName("test_status_update");
+//			userTypeDao.delete(userTypeDelete);
+//
+//		} catch ( DAOException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(userTypeAdd);
+//		System.out.println(userTypeGet);
+//		System.out.println(userTypeUpdate);
+//		System.out.println(userTypeDelete);
+
+		//PlantsType
+//		PlantTypeDaoImpl plantTypeDao = PlantTypeDaoImpl.INSTANCE;
+//		PlantType plantTypeAdd = null;
+//		PlantType plantTypeGet = null;
+//		PlantType plantTypeUpdate = null;
+//		PlantType plantTypeDelete = null;
+//
+//		try {
+//			plantTypeAdd = new PlantTypeBuilder().withName("test_status").build();
+//			plantTypeDao.add(plantTypeAdd);
+//			plantTypeGet = plantTypeDao.getByName("Лианы");
+//			plantTypeUpdate = plantTypeDao.getByName("test_status");
+//			plantTypeUpdate.setTypeName("test_status_update");
+//			plantTypeDao.update(plantTypeUpdate);
+//			plantTypeDelete = plantTypeDao.getByName("test_status_update");
+//			plantTypeDao.delete(plantTypeDelete);
+//
+//		} catch ( DAOException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(plantTypeAdd);
+//		System.out.println(plantTypeGet);
+//		System.out.println(plantTypeUpdate);
+//		System.out.println(plantTypeDelete);
+
+		//workType
+//		WorkTypeDaoImpl workTypeDao = WorkTypeDaoImpl.INSTANCE;
+//		WorkType workTypeAdd = null;
+//		WorkType workTypeGet = null;
+//		WorkType workTypeUpdate = null;
+//		WorkType workTypeDelete = null;
+
+//		try {
+//			workTypeAdd = new WorkTypeBuilder().withTypeName("test_status").build();
+//			workTypeDao.add(workTypeAdd);
+//			workTypeGet = workTypeDao.getByName("Лечение");
+//			workTypeUpdate = workTypeDao.getByName("test_status");
+//			workTypeUpdate.setTypeName("test_status_update");
+//			workTypeDao.update(workTypeUpdate);
+//			workTypeDelete = workTypeDao.getByName("test_status_update");
+//			workTypeDao.delete(workTypeDelete);
+//
+//		} catch ( DAOException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(workTypeAdd);
+//		System.out.println(workTypeGet);
+//		System.out.println(workTypeUpdate);
+//		System.out.println(workTypeDelete);
+
+		//park
+//		ParkDaoImpl parkDao = ParkDaoImpl.INSTANCE;
+//		Park park = null;
+
+
+		//user
+
+//		UserDaoImpl userDao = UserDaoImpl.INSTANCE;
+//		User userAdd = null;
+//		User userGet = null;
+//		User userUpdate = null;
+//		User userDelete = null;
+//		Park park = null;
+//		UserType userType= null;
+//
+//		try {
+//			userType = UserTypeDaoImpl.INSTANCE.getById(2);
+//			park = ParkDaoImpl.INSTANCE.getById(5);
+//			userAdd = new UserBuilder().withLogin("test_status").withPassword("testpassword").
+//					withFirstName("ttt").withLastName("aaa").withPhoneNumber("55555").
+//					withEmail("tt@oo.dd").withUserType(userType).withPark(park).build();
+//			userDao.add(userAdd);
+//			userGet = userDao.getById(3);
+//			userUpdate = userDao.getByLogin("test_status");
+//			userUpdate.setLogin("test_status_update");
+//			userDao.update(userUpdate);
+//			userDelete = userDao.getByLogin("test_status_update");
+//			userDao.delete(userDelete);
+//
+//		} catch (DAOException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(userAdd);
+//		System.out.println(userGet);
+//		System.out.println(userUpdate);
+//		System.out.println(userDelete);
+
+		//application
+//		ApplicationDaoImpl applicationDao = ApplicationDaoImpl.INSTANCE;
+//		Application applicationAdd = null;
+//		Application applicationGet = null;
+//		Application applicationUpdate = null;
+//		Application applicationDelete = null;
+//
+//		try {
+//			User owner =  UserDaoImpl.INSTANCE.getById(3);
+//			User employee = UserDaoImpl.INSTANCE.getById(4);
+//			ApplicationStatus status = ApplicationStatusDaoImpl.INSTANCE.getById(1);
+//			PlantType plantType = PlantTypeDaoImpl.INSTANCE.getById(3);
+//			WorkType workType = WorkTypeDaoImpl.INSTANCE.getById(2);
+//			Park park = ParkDaoImpl.INSTANCE.getById(5);
+//
+//			applicationAdd = new ApplicationBuilder().withStartDate(new java.sql.Date(new Date().getTime())).
+//								withIsApproved(false).withWorkType(workType).
+//								withPlantType(plantType).withPark(park).
+//								withApplicationStatus(status).withOwner(owner).
+//								withEmployee(employee).build();
+//			applicationDao.add(applicationAdd);
+//			applicationGet = applicationDao.getById(1);
+//			applicationUpdate = applicationDao.getById(2);
+//			applicationUpdate.setOwnerComment("go fuck yourself");
+//			applicationDao.update(applicationUpdate);
+//			applicationDelete = applicationDao.getById(2);
+//			applicationDao.delete(applicationDelete);
+
+//		} catch (DAOException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(applicationAdd);
+//		System.out.println(applicationGet);
+//		System.out.println(applicationUpdate);
+//		System.out.println(applicationDelete);
+//
+
 
 
 

@@ -52,6 +52,6 @@ public class ApplicationStatus implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PlantType[id=" + id +", typeName=" + statusName + "]";
+		return "ApplicationStatus[id=" + id +", statusName=" + statusName + "]";
 	}
 }

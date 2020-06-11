@@ -65,6 +65,7 @@ Park.iml
 ### Eclipse Patch ###
 # Eclipse Core
 .project
+.vscode
 
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
