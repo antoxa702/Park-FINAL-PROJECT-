@@ -1,6 +1,9 @@
 package runner;
 
+import dao.impl.UserDaoImpl;
+import entity.User;
 import exception.CommandException;
+import exception.DAOException;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -261,6 +264,16 @@ public class Runner {
 //		System.out.println(applicationUpdate);
 //		System.out.println(applicationDelete);
 //
+		try {
+
+
+
+			User user  = UserDaoImpl.INSTANCE.getByLogin("admin");
+			System.out.println("login=" + user.getLogin());
+			System.out.println("password=" + user.getPassword());
+		} catch (DAOException e) {
+			System.out.println("something wrong with dao");;
+		}
 
 
 

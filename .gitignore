@@ -13,6 +13,7 @@ tmp/
 *~.nib
 local.properties
 .settings/
+.vscode
 .loadpath
 .recommenders
 .idea
@@ -65,7 +66,7 @@ Park.iml
 ### Eclipse Patch ###
 # Eclipse Core
 .project
-.vscode
+.vscode/
 
 # JDT-specific (Eclipse Java Development Tools)
 .classpath

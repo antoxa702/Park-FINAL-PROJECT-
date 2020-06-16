@@ -3,6 +3,7 @@ package controller;
 import command.Command;
 import exception.CommandException;
 import exception.ParkServiceException;
+import exception.UserServiceException;
 import factory.CommandProvider;
 
 import javax.servlet.ServletException;
@@ -28,6 +29,8 @@ public class FrontControllerServlet extends HttpServlet {
 		} catch (ParkServiceException e) {
 			e.printStackTrace();
 		} catch (CommandException e) {
+			e.printStackTrace();
+		} catch (UserServiceException e) {
 			e.printStackTrace();
 		}
 	}

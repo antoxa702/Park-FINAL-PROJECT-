@@ -1,10 +1,7 @@
 package factory;
 
 import command.Command;
-import command.impl.ErrorPageCommand;
-import command.impl.MainPageCommand;
-import command.impl.ParkListCommand;
-import command.impl.SignInPageCommand;
+import command.impl.*;
 import exception.CommandException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +25,9 @@ public enum CommandProvider {
 		repository.put(MAIN.name(), new MainPageCommand());
 		repository.put(ERROR.name(), new ErrorPageCommand());
 		repository.put(SIGN_IN.name(), new SignInPageCommand());
+		repository.put(SIGN.name(), new SignCommand());
+		repository.put(REGISTER_PAGE.name(), new RegisterPageCommand());
+		repository.put(REGISTER.name(), new RegisterCommand());
 		// more ..
 	}
 
