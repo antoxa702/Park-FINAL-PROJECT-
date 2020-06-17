@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ page errorPage="error.jsp" %>
 
@@ -9,14 +9,16 @@
     }
 </script>
 
+
 <jsp:include page="include/header.jsp"/>
+
 
 
 
 <div class="login-page">
     <div class="login-block">
         <h3>Enter your data</h3>
-        <form action="reg">
+        <form action="fcs?action=register" method="POST">
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user ti-user"></i></span>
@@ -48,7 +50,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-lock ti-unlock"></i></span>
-                    <input type="password" class="form-control" name="last_name" placeholder="Last name" required>
+                    <input type="text" class="form-control" name="last_name" placeholder="Last name" required>
                 </div>
             </div>
 
@@ -62,23 +64,22 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-lock ti-unlock"></i></span>
-                    <input type="password" class="form-control" name="email" placeholder="Your email">
+                    <input type="text" class="form-control" name="email" placeholder="Your email">
                 </div>
             </div>
 
-            <form>
-                SELECT YOUR PARK : <select name="parks" required>
+            <div>
+                SELECT YOUR PARK : <select name="parks" required="true">
                     <c:forEach var="park" items="${parkList}">
                         <option>${park.name}</option>
                     </c:forEach>
                 </select>
-            </form>
+            </div>
 
-            <label><input type="radio" name="userType" value="owner" onclick="setDisabled('k', false)">Owner</label>
-            <label><input type="radio" name="userType" value="forester" checked onclick="setDisabled('k', true)">Forester</label>
+            <input type="radio" name="user_type" value="owner" onclick="setDisabled('key', false)"/>Owner
+            <input type="radio" name="user_type" value="forester" checked onclick="setDisabled('key', true)"/>Forester
 
-            <input type="text" class="form-control" name="key" id="k" placeholder="Secret key" disabled>
-
+            <input type="password" class="form-control" name="key" id="key" placeholder="Secret key" disabled/>
 
             <button class="btn btn-primary btn-block" type="submit">ENTER</button>
 

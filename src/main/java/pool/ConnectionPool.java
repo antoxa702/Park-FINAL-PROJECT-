@@ -2,7 +2,7 @@ package pool;
 
 import static util.DbInitValues.DB_DRIVER_NAME;
 import static util.DbInitValues.DB_PASSWORD_NAME;
-import static util.DbInitValues.DB_POOLSIZE_NAME;
+import static util.DbInitValues.DB_POOL_SIZE;
 import static util.DbInitValues.DB_PROPERTIES_FILE_NAME;
 import static util.DbInitValues.DB_URL_NAME;
 import static util.DbInitValues.DB_USER_NAME;
@@ -133,7 +133,7 @@ public enum ConnectionPool {
 	private void initAvaliableConnectionQueue() {		
 		availableConnectionQueue = new LinkedBlockingQueue<>();
 		
-		int poolCapacity = Integer.parseInt(resource.getString(DB_POOLSIZE_NAME));
+		int poolCapacity = Integer.parseInt(resource.getString(DB_POOL_SIZE));
 		String dbUrl = resource.getString(DB_URL_NAME);
 		String user = resource.getString(DB_USER_NAME);
 		String password = resource.getString(DB_PASSWORD_NAME); 

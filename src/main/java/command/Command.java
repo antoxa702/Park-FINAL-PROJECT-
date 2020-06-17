@@ -1,12 +1,11 @@
 package command;
 
-import exception.ParkServiceException;
-import exception.UserServiceException;
+import exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 
 public interface
 
 Command {
-	PageManager execute(HttpServletRequest request) throws ParkServiceException, UserServiceException;
+	PageManager execute(HttpServletRequest request) throws ServiceException, ServiceException;
 }

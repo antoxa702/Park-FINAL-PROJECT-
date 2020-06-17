@@ -2,8 +2,7 @@ package controller;
 
 import command.Command;
 import exception.CommandException;
-import exception.ParkServiceException;
-import exception.UserServiceException;
+import exception.ServiceException;
 import factory.CommandProvider;
 
 import javax.servlet.ServletException;
@@ -26,11 +25,9 @@ public class FrontControllerServlet extends HttpServlet {
 			String path  = command.execute(request).getUrl();
 			request.getRequestDispatcher(path).forward(request, response);
 
-		} catch (ParkServiceException e) {
+		} catch (ServiceException e) {
 			e.printStackTrace();
 		} catch (CommandException e) {
-			e.printStackTrace();
-		} catch (UserServiceException e) {
 			e.printStackTrace();
 		}
 	}

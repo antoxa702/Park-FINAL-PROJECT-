@@ -2,7 +2,7 @@ package command.impl;
 
 import command.Command;
 import command.PageManager;
-import exception.ParkServiceException;
+import exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ParkService;
@@ -15,7 +15,7 @@ public class RegisterPageCommand implements Command {
 	ParkService parkService = ParkService.INSTANCE;
 
 	@Override
-	public PageManager execute(HttpServletRequest request) throws ParkServiceException {
+	public PageManager execute(HttpServletRequest request) throws ServiceException {
 		request.setAttribute("parkList", parkService.getAllParks());
 		LOGGER.debug("DEBUG : Forwarding to REGISTER page");
 		return PageManager.REGISTER_PAGE;

@@ -18,6 +18,7 @@
 <head>
     <title>Main page</title>
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
 <body>

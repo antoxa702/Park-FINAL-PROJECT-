@@ -3,7 +3,7 @@ package command.impl;
 import command.Command;
 import command.PageManager;
 import entity.Park;
-import exception.ParkServiceException;
+import exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ParkService;
@@ -19,7 +19,7 @@ public class ParkListCommand implements Command {
 	private final ParkService service = ParkService.INSTANCE;
 
 	@Override
-	public PageManager execute(HttpServletRequest request) throws ParkServiceException {
+	public PageManager execute(HttpServletRequest request) throws ServiceException {
 
 		List<Park> parkList = service.getAllParks();
 		request.setAttribute(PARK_LIST_ALL, parkList);
