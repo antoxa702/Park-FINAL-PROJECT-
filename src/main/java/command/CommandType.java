@@ -8,7 +8,8 @@ public enum CommandType {
 	SIGN_IN("SIGN_IN"),
 	SIGN("SIGN"),
 	REGISTER_PAGE("REGISTER_PAGE"),
-	REGISTER("REGISTER");
+	REGISTER("REGISTER"),
+	SIGN_OUT("SIGN_OUT");
 	//more commands...
 
 

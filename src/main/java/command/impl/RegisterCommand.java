@@ -28,14 +28,19 @@ public class RegisterCommand implements Command {
 
 		User userFromRegistrationForm = createUserFromRegisterForm(request);
 
-		if (userFromRegistrationForm.getPassword().equals(repeatPassword) &&
-				(userFromRegistrationForm.getUserType().getNameType().equals("owner")
-						&& key.equals("secret key")) && userService.registerUser(userFromRegistrationForm)){
+		if (userFromRegistrationForm.getPassword().equals(repeatPassword)) {
+			if (userFromRegistrationForm.getUserType().getNameType().equals("owner") && !key.equals("secret")){
+			LOGGER.warn("WARN : UserType owner secret key doesn't match SECRET_KEY");
 			return PageManager.ERROR_PAGE;
-		} else {
-			LOGGER.warn ("WARN : User haven't been registered");
-			return PageManager.ERROR_PAGE;
+			}
+
+			if (userService.registerUser(userFromRegistrationForm)) {
+				request.getSession().setAttribute(USER, userFromRegistrationForm);
+				return PageManager.MAIN_PAGE; //TODO redirect to the cabinet jsp
+			}
 		}
+		LOGGER.warn ("WARN : User haven't been registered");
+		return PageManager.ERROR_PAGE;
 	}
 
 	private User createUserFromRegisterForm(HttpServletRequest request) throws ServiceException {
@@ -47,6 +52,7 @@ public class RegisterCommand implements Command {
 		String email = request.getParameter(EMAIL);
 		String parkName = request.getParameter(PARKS);
 		String userType = request.getParameter(USER_TYPE);
+		String key = request.getParameter(KEY);
 
 		System.out.println("login=" + login);
 		System.out.println("password=" + password);
@@ -56,6 +62,7 @@ public class RegisterCommand implements Command {
 		System.out.println("email=" + email);
 		System.out.println("parkName=" + parkName);
 		System.out.println("userType=" + userType);
+		System.out.println("key=" + key);
 
 
 		return new UserBuilder().withLogin(login).withPassword(password).withFirstName(firstName).

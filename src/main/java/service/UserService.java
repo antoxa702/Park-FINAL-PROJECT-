@@ -31,7 +31,7 @@ public enum UserService {
 
 	public boolean registerUser (User user) {
 		try {
-			if (isRegisteredUser(user)) {
+			if (!isRegisteredUser(user)) {
 				userDao.add(user);
 			}
 		} catch (ServiceException | DAOException e) {
@@ -48,7 +48,7 @@ public enum UserService {
 				if (rUser.getLogin().equals(user.getLogin()) || rUser.getEmail().equals(user.getEmail()) ||
 						rUser.getPhoneNumber().equals(user.getPhoneNumber())) {
 					LOGGER.warn("WARN : user with this LOGIN or EMAIL or PHONE_NUMBER have been registered already");
-					return false;
+					return true;
 				}
 			}
 
@@ -56,7 +56,7 @@ public enum UserService {
 			LOGGER.error("ERROR : UserDAO exception");
 			throw new ServiceException("ERROR : DaoException getting users from database", e);
 		}
-		return true;
+		return false;
 	}
 
 }

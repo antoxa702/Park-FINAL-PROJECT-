@@ -8,7 +8,9 @@
 <link href="${pageContext.request.contextPath}/css/signin.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/bootstrap/.." rel="stylesheet">
 <jsp:include page="include/header.jsp"/>
-
+<br>
+<br>
+<br>
 <div class="login-page">
     <div class="login-block">
         <h3>Enter your data</h3>

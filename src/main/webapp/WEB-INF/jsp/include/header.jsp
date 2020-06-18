@@ -40,19 +40,39 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/index1.jsp">Home
+                            <a class="nav-link" href="${pageContext.request.contextPath}/fcs?action=main">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">About</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="fcs?action=sign_in" class="nav-link" data-toggle="modal" data-target="#signin">Sign in</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Sign out</a>
-                        </li>
+                        
+                        <c:if test="${user == null}">
+                            <li class="nav-item">
+                                <a href="fcs?action=sign_in" class="nav-link" data-toggle="modal" data-target="#signin">Sign in</a>
+                            </li>
+                        </c:if>
+
+                        <c:if test="${user != null}">
+                            <li class="nav-item">
+                                <a href="fcs?action=sign_out" class="nav-link" data-toggle="modal" data-target="#signin" disabled>Sign out</a>
+                            </li>
+                        </c:if>
+                        
+                        <c:if test="${sessionScope.user == null}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" disabled>Sign out</a>
+                            </li>
+                        </c:if>
+
+                        <c:if test="${sessionScope.user != null}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sign out</a>
+                            </li>
+                        </c:if>
+                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="fcs?action=get_park_list">Parks</a>
                         </li>
@@ -65,6 +85,7 @@
 
 
     <div class="container">
+        <h3>Current user : ${sessionScope.user.login}</h3>
 <!-- // too do modal window for sign in
 
         <div class="modal fade" id="signin" tabindex="-1" role="dialog" aria-labelledby="signin" aria-hidden="true">
