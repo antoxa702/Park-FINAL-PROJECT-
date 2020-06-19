@@ -29,6 +29,7 @@ public enum CommandProvider {
 		repository.put(REGISTER_PAGE.name(), new RegisterPageCommand());
 		repository.put(REGISTER.name(), new RegisterCommand());
 		repository.put(SIGN_OUT.name(), new SignOutCommand());
+		repository.put(CABINET.name(), new CabinetCommand());
 		// more ..
 	}
 

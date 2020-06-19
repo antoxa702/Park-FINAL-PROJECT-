@@ -21,6 +21,7 @@ public class FrontControllerValues {
 	public static final String USER_TYPE = "user_type";
 	public static final String KEY = "key";
 	public static final String OWNER = "owner";
+	public static final String COLOR = "color";
 
 	/**
 	 * Next Strings are used for initialize FrontController attribute values.

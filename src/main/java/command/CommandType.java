@@ -9,6 +9,7 @@ public enum CommandType {
 	SIGN("SIGN"),
 	REGISTER_PAGE("REGISTER_PAGE"),
 	REGISTER("REGISTER"),
+	CABINET("CABINET"),
 	SIGN_OUT("SIGN_OUT");
 	//more commands...
 

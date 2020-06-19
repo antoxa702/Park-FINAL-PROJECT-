@@ -7,6 +7,7 @@ public enum PageManager {
 	ERROR_PAGE("/WEB-INF/jsp/error.jsp"),
 	SIGN_PAGE("/WEB-INF/jsp/signin.jsp"),
 	REGISTER_PAGE("WEB-INF/jsp/register.jsp"),
+	CABINET("WEB-INF/jsp/cabinet.jsp"),
 	TEST("WEB-INF/jsp/test.jsp");
 
 	String url;

@@ -32,7 +32,7 @@ public class SignCommand implements Command {
 		} else {
 			LOGGER.warn("WARN : Can't find user by login and password");
 		}
-		return PageManager.TEST;
+		return PageManager.CABINET;
 	}
 
 	//TODO delete sout, setAttribute login, password and etc.
