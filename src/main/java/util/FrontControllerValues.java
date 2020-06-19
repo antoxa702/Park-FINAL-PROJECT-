@@ -20,10 +20,17 @@ public class FrontControllerValues {
 	public static final String PARKS = "parks";
 	public static final String USER_TYPE = "user_type";
 	public static final String KEY = "key";
+	public static final String OWNER = "owner";
 
 	/**
 	 * Next Strings are used for initialize FrontController attribute values.
 	 */
 	public static final String PARK_LIST_ALL = "parkList";
+
+	/**
+	 * Next Strings are used for identify secret key at user.properties
+	 */
+	public static final String USER_PROPERTIES_FILE_NAME = "user";
+	public static final String SECRET_KEY = "owner.key";
 
 }

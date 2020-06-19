@@ -9,6 +9,8 @@ import service.ParkService;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static util.FrontControllerValues.PARK_LIST_ALL;
+
 public class RegisterPageCommand implements Command {
 
 	private static final Logger LOGGER = LogManager.getLogger(RegisterPageCommand.class);
@@ -16,7 +18,7 @@ public class RegisterPageCommand implements Command {
 
 	@Override
 	public PageManager execute(HttpServletRequest request) throws ServiceException {
-		request.setAttribute("parkList", parkService.getAllParks());
+		request.setAttribute(PARK_LIST_ALL, parkService.getAllParks());
 		LOGGER.debug("DEBUG : Forwarding to REGISTER page");
 		return PageManager.REGISTER_PAGE;
 	}

@@ -24,7 +24,6 @@ public class SignCommand implements Command {
 		request.setAttribute(LOGIN, login);
 		request.setAttribute(PASSWORD, password);
 
-		// System.out.println("login=" + login + ", password=" + password);
 		User user = service.getUser(login, password);
 
 		if (user != null) {

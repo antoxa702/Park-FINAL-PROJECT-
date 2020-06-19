@@ -90,4 +90,5 @@ public class DbInitValues {
 	public static final String TABLE_APPLICATION_APL_STATUS_ID = "Status_id";
 	public static final String TABLE_APPLICATION_EMPLOYEE_ID = "Employee_id";
 	public static final String TABLE_APPLICATION_OWNER_ID = "Owner_id";
+
 }
