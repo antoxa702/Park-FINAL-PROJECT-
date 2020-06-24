@@ -1,11 +1,15 @@
 package runner;
 
-import dao.impl.UserDaoImpl;
-import entity.User;
 import exception.CommandException;
-import exception.DAOException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Do some tests during writing classes, like testing poll, peek methods and else..
@@ -264,30 +268,56 @@ public class Runner {
 //		System.out.println(applicationUpdate);
 //		System.out.println(applicationDelete);
 //
+//		try {
+//
+//
+//
+//			User user  = UserDaoImpl.INSTANCE.getByLogin("admin");
+//			System.out.println("login=" + user.getLogin());
+//			System.out.println("password=" + user.getPassword());
+//		} catch (DAOException e) {
+//			System.out.println("something wrong with dao");;
+//		}
+
+		Document page = null;
 		try {
-
-
-
-			User user  = UserDaoImpl.INSTANCE.getByLogin("admin");
-			System.out.println("login=" + user.getLogin());
-			System.out.println("password=" + user.getPassword());
-		} catch (DAOException e) {
-			System.out.println("something wrong with dao");;
+			page = Jsoup.connect("https://www.gismeteo.by/weather-minsk-4248/now/").get();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		Element mainDiv = page.select("div[class=frame_items_9 now  now_day]").first();
+		Element temperature = mainDiv.select("span[class=unit unit_temperature_c]").first();
+		Element description = mainDiv.selectFirst("div[class=now__desc]");
+		Element wind = mainDiv.selectFirst("div[class=unit unit_wind_m_s]");
+		Element pressure = mainDiv.selectFirst("div[class=unit unit_pressure_mm_hg_atm]");
+		Element humidity = mainDiv.selectFirst("div[class=nowinfo__item nowinfo__item_humidity]");
+
+		System.out.println("Temperature now = " + temperature.text() + ", oC");
+		System.out.println("Description now = " + description.text());
+		System.out.println("Wind now = " + wind.text());
+		System.out.println("Pressure now = " + pressure.text());
+		System.out.println("Humidity now = " + humidity.text().substring(10));
+
+
+		List<Elements> elementsList = new ArrayList<>();
 
 
 
 
+//		for (Element el : elements) {
+//			System.out.println(el.text());
+//		}
 
+		//System.out.println(nowTime);
+		//System.out.println(mainDiv);
 
+		//System.out.println(nowTime.get(2).text());
+		//System.out.println(nowTime.get(3).text());
 
-
-
-
-
-
-
-
+		//String time = nowTime.select("time[data-dateformat=D, j F, G:i]").text();
+		//String value = time.ownText();
+		//System.out.println(nowTime);
+		//System.out.println(value);
 
 		/*
 		String phone = "1231351516479846515";

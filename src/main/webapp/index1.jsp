@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="tag" uri="/WEB-INF/tld/WeatherTagDescriptor.tld" %>
+
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet"
@@ -33,6 +35,8 @@
 			</form>
 		</div>
 	</div>
+<tag:WeatherTag/>
+
 </body>
 </html>
 

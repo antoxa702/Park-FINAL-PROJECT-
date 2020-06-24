@@ -17,5 +17,5 @@ public class CabinetCommand implements Command {
 		return PageManager.CABINET;
 	}
 
-	//TODO see? if needed
+	//TODO see, if needed
 }
