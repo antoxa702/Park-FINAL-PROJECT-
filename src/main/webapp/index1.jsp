@@ -26,12 +26,16 @@
 			background image. Try to resize the browser window to see how it
 			always will cover the full screen (when scrolled to top), and that it
 			scales nicely on all screen sizes.</p>
-		<h1>Hello</h1>
+
 		<div>
 			<form action="fcs?action=get_park_list" method="POST">
 				<button type="submit" class="btn btn-danger"
 						style="margin: 0px auto">GIVE ME PARK LIST
 				</button>
+				<button action="fcs?action=change_language" class="btn btn-success" style="margin: 0px auto"
+						type="submit">RU
+				</button>
+
 			</form>
 		</div>
 	</div>
@@ -39,4 +43,3 @@
 
 </body>
 </html>
-

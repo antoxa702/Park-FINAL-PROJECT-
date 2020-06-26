@@ -4,6 +4,8 @@ import command.Command;
 import exception.CommandException;
 import exception.ServiceException;
 import factory.CommandProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,9 @@ import java.io.IOException;
 
 @WebServlet (name="controller", urlPatterns="/fcs")
 public class FrontControllerServlet extends HttpServlet {
+
+	private static final Logger LOGGER = LogManager.getLogger(FrontControllerServlet.class);
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -26,9 +31,11 @@ public class FrontControllerServlet extends HttpServlet {
 			request.getRequestDispatcher(path).forward(request, response);
 
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOGGER.error("ERROR : service exception");
+			throw new ServletException("ERROR : while getting service", e);
 		} catch (CommandException e) {
-			e.printStackTrace();
+			LOGGER.error("ERROR : command exception");
+			throw new ServletException("ERROR : while getting command", e);
 		}
 	}
 

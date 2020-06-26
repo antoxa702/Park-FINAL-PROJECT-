@@ -1,15 +1,9 @@
 package runner;
 
 import exception.CommandException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 /**
  * Do some tests during writing classes, like testing poll, peek methods and else..
@@ -279,27 +273,10 @@ public class Runner {
 //			System.out.println("something wrong with dao");;
 //		}
 
-		Document page = null;
-		try {
-			page = Jsoup.connect("https://www.gismeteo.by/weather-minsk-4248/now/").get();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Element mainDiv = page.select("div[class=frame_items_9 now  now_day]").first();
-		Element temperature = mainDiv.select("span[class=unit unit_temperature_c]").first();
-		Element description = mainDiv.selectFirst("div[class=now__desc]");
-		Element wind = mainDiv.selectFirst("div[class=unit unit_wind_m_s]");
-		Element pressure = mainDiv.selectFirst("div[class=unit unit_pressure_mm_hg_atm]");
-		Element humidity = mainDiv.selectFirst("div[class=nowinfo__item nowinfo__item_humidity]");
-
-		System.out.println("Temperature now = " + temperature.text() + ", oC");
-		System.out.println("Description now = " + description.text());
-		System.out.println("Wind now = " + wind.text());
-		System.out.println("Pressure now = " + pressure.text());
-		System.out.println("Humidity now = " + humidity.text().substring(10));
-
-
-		List<Elements> elementsList = new ArrayList<>();
+//		Locale locale = Locale.ENGLISH;
+//		Locale rus = new Locale("ru", "RU");
+//		getLocaleInfo(rus);
+//
 
 
 
@@ -523,5 +500,14 @@ public class Runner {
 				System.out.println("something is wrong with closing connection, statement or resultSet");
 			}				
 		}*/
-	}	
+	}
+
+	private static void getLocaleInfo(Locale current) {
+		System.out.println("Код региона: " + current.getCountry());
+		System.out.println("Название региона: " + current.getDisplayCountry());
+		System.out.println("Код языка региона: " + current.getLanguage());
+		System.out.println("Название языка региона: "
+				+ current.getDisplayLanguage());
+		System.out.println();
+	}
 }
