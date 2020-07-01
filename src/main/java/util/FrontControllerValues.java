@@ -27,6 +27,7 @@ public class FrontControllerValues {
 	 * Next Strings are used for initialize FrontController attribute values.
 	 */
 	public static final String PARK_LIST_ALL = "parkList";
+	public static final String LANGUAGE_MANAGER = "language";
 
 	/**
 	 * Next Strings are used for identify secret key at user.properties

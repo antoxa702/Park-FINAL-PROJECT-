@@ -1,13 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-
-<%@ page errorPage="error.jsp" %>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <link href="${pageContext.request.contextPath}/css/signin.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/bootstrap/.." rel="stylesheet">
-<jsp:include page="include/header.jsp"/>
+<%@include file="include/header.jsp"%>
 <br>
 <br>
 <br>
@@ -42,4 +36,4 @@
 </div>
 
 
-<jsp:include page="include/footer.jsp"/>
+<%@include file="include/footer.jsp"%>

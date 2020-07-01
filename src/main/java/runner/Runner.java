@@ -1,6 +1,7 @@
 package runner;
 
 import exception.CommandException;
+import util.language.LanguageManager;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
@@ -278,7 +279,27 @@ public class Runner {
 //		getLocaleInfo(rus);
 //
 
+		LanguageManager languageManager = LanguageManager.INSTANCE;
+		String language = languageManager.getLanguage();
+		String hello = languageManager.getValue("hello");
+		System.out.println("language = [" + language + "], hello = [" + hello + "]");
 
+
+		languageManager.changeLocale(new Locale("en", "UK"));
+		String newLanguage = languageManager.getLanguage();
+		String newHello = languageManager.getValue("hello");
+		System.out.println("language after changing = [" + newLanguage + "], hello = [" + newHello + "]");
+
+		languageManager.changeLocale(new Locale("ru", "RU"));
+		String newnewLanguage = languageManager.getLanguage();
+		String newnewHello = languageManager.getValue("hello");
+		System.out.println("language after changing = [" + newnewLanguage + "], hello = [" + newnewHello + "]");
+
+
+
+
+//		String newLanguage = languageManager.getLanguage();
+//		System.out.println("language after changing = [" + newLanguage + "], hello = [" + hello + "]");
 
 
 //		for (Element el : elements) {

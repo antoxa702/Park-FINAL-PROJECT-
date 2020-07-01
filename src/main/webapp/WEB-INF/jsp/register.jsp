@@ -1,8 +1,3 @@
-<%@ page language="java" contentType="text/html charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ page errorPage="error.jsp" %>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript">
     var setDisabled = function(id, status) { /* пропишем функцию активации/деактивации полей */
         document.getElementById(id).disabled=status;
@@ -10,7 +5,7 @@
 </script>
 
 
-<jsp:include page="include/header.jsp"/>
+<%@include file="include/header.jsp"%>>
 
 
 
@@ -94,4 +89,4 @@
 
 
 
-<jsp:include page="include/footer.jsp"/>
+<%@include file="include/footer.jsp"%>

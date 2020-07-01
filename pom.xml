@@ -25,6 +25,7 @@
 		<json.version>20190722</json.version>
 		<bootstrap.version>4.1.1</bootstrap.version>
 		<jsoup.version>1.12.2</jsoup.version>
+	    <jstl_version>1.2</jstl_version>
 			
 		<junit.version>4.12</junit.version>
 		<log4j-api.version>2.13.0</log4j-api.version>
@@ -123,6 +124,13 @@
 			  <artifactId>jsoup</artifactId>
 			  <version>${jsoup.version}</version>
 		</dependency>
+
+
+	  <dependency>
+		  <groupId>jstl</groupId>
+		  <artifactId>jstl</artifactId>
+		  <version>${jstl_version}</version>
+	  </dependency>
 
   </dependencies>
 </project>

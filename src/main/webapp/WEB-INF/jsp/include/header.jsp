@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ page errorPage="../error.jsp" %>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
@@ -22,9 +21,15 @@
 </head>
 
 <body>
+
 <div class="bg">
+
     <header>
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+            <form action="fcs?action=change_language" method="POST">
+                <button type="submit" class="btn btn-success"style="margin: 0px auto">${language.getValue("main_navi07")}</button>
+            </form>
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img src="${pageContext.request.contextPath}/images/forest_210_70.png?text=Logo" alt="">
@@ -34,47 +39,47 @@
                 </button>
 
                 <div class="content" id="center">
-                    <p><font size="20" color="white" >Metsänvartian</font></p>
+                    <p><font size="20" color="white" >${language.getValue("main_navi01")}</font></p>
                 </div>
 
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/fcs?action=main">Home
+                            <a class="nav-link" href="${pageContext.request.contextPath}/fcs?action=main">${language.getValue("main_navi02")}
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="#">${language.getValue("main_navi03")}</a>
                         </li>
                         
                         <c:if test="${user == null}">
                             <li class="nav-item">
-                                <a href="fcs?action=sign_in" class="nav-link" data-toggle="modal" data-target="#signin">Sign in</a>
+                                <a href="fcs?action=sign_in" class="nav-link" data-toggle="modal" data-target="#signin">${language.getValue("main_navi04")}</a>
                             </li>
                         </c:if>
 
                         <c:if test="${user != null}">
                             <li class="nav-item">
-                                <a href="fcs?action=sign_out" class="nav-link" data-toggle="modal" data-target="#signin" disabled>Sign out</a>
+                                <a href="fcs?action=sign_out" class="nav-link" data-toggle="modal" data-target="#signin" disabled>${language.getValue("main_navi05")}</a>
                             </li>
                         </c:if>
                         
                         <c:if test="${sessionScope.user == null}">
                             <li class="nav-item">
-                                <a class="nav-link" href="#" disabled>Sign out</a>
+                                <a class="nav-link" href="#" disabled>${language.getValue("main_navi05")}</a>
                             </li>
                         </c:if>
 
                         <c:if test="${sessionScope.user != null}">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Sign out</a>
+                                <a class="nav-link" href="#">${language.getValue("main_navi05")}</a>
                             </li>
                         </c:if>
                         
 
                         <li class="nav-item">
-                            <a class="nav-link" href="fcs?action=get_park_list">Parks</a>
+                            <a class="nav-link" href="fcs?action=get_park_list">${language.getValue("main_navi06")}</a>
                         </li>
                     </ul>
                 </div>

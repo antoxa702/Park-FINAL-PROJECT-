@@ -30,6 +30,7 @@ public enum CommandProvider {
 		repository.put(REGISTER.name(), new RegisterCommand());
 		repository.put(SIGN_OUT.name(), new SignOutCommand());
 		repository.put(CABINET.name(), new CabinetCommand());
+		repository.put(CHANGE_LANGUAGE.name(), new ChangeLanguageCommand());
 		// more ..
 	}
 
