@@ -29,7 +29,8 @@ public class FrontControllerServlet extends HttpServlet {
 			CommandProvider commandProvider = CommandProvider.INSTANCE; // getting commandProvider instance
 			Command command = commandProvider.getCommand(request);		// getting Command
 
-			String path  = command.execute(request).getUrl(); 			//getting request object after setting attribute
+			String path  = command.execute(request).getUrl();
+			System.out.println("path = " + path);//getting request object after setting attribute
 
 			request.getRequestDispatcher(path).forward(request, response);
 

@@ -15,18 +15,18 @@ public enum UserService {
 	UserDaoImpl userDao = UserDaoImpl.INSTANCE;
 
 	public User getUser(String login, String password) throws ServiceException {
-		User user = null;
+		User loggedUser;
 		try {
-			if ((user = userDao.getByLogin(login)) != null && password.equals(user.getPassword())) {
-				return user;
+			if ((loggedUser = userDao.getByLogin(login)) != null && password.equals(loggedUser.getPassword())) {
+				return loggedUser;
 			} else {
 				LOGGER.warn("WARN : can't find user or password is incorrect");
+				return null;
 			}
 		} catch (DAOException e) {
 			LOGGER.error("ERROR : DaoException getting user from database");
 			throw new ServiceException("ERROR : getting user from userService", e);
 		}
-		return user;
 	}
 
 	public boolean registerUser (User user) {

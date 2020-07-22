@@ -1,4 +1,11 @@
 @charset "UTF-8";
+.login-page
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .login-block
 {
@@ -7,14 +14,21 @@
     -webkit-box-shadow:0 3px 50px 0 rgba(0,0,0,.1);
     box-shadow:0 3px 50px 0 rgba(0,0,0,.1);
     text-align:center;
-    border-radius:5px
+    border-radius:5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .login-block h*,.login-block h6
 {
     font-family:Open Sans,sans-serif;
     color:#96a2b2;
-    letter-spacing:1px
+    letter-spacing:1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .login-block h*

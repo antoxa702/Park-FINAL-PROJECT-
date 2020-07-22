@@ -11,7 +11,7 @@ import static util.FrontControllerValues.USER;
 public class SignOutCommand implements Command {
 	@Override
 	public PageManager execute(HttpServletRequest request) throws ServiceException, ServiceException {
-		request.getSession().setAttribute(USER, null);
+		request.getSession().removeAttribute(USER);
 		return PageManager.MAIN_PAGE;
 	}
 }

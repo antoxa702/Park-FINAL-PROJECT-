@@ -24,6 +24,6 @@ public class ParkListCommand implements Command {
 		List<Park> parkList = service.getAllParks();
 		request.setAttribute(PARK_LIST_ALL, parkList);
 		LOGGER.debug("DEBUG : Attribute have been set successfully");
-		return PageManager.INDEX2;
+		return PageManager.PARK_LIST;
 	}
 }

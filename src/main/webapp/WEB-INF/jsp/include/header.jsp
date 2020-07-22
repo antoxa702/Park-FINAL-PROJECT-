@@ -45,7 +45,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/fcs?action=main">${language.getValue("main_navi02")}
+                            <a class="nav-link" href="fcs?action=main">${language.getValue("main_navi02")}
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -55,34 +55,34 @@
                         
                         <c:if test="${user == null}">
                             <li class="nav-item">
-                                <a href="fcs?action=sign_in" class="nav-link" data-toggle="modal" data-target="#signin">${language.getValue("main_navi04")}</a>
+                                <a href="fcs?action=sign_in" class="nav-link" >${language.getValue("main_navi04")}</a>
                             </li>
                         </c:if>
 
                         <c:if test="${user != null}">
                             <li class="nav-item">
-                                <a href="fcs?action=sign_out" class="nav-link" data-toggle="modal" data-target="#signin" disabled>${language.getValue("main_navi05")}</a>
+                                <a href="fcs?action=sign_out" class="nav-link" >${language.getValue("main_navi05")}</a>
                             </li>
                         </c:if>
-                        
-                        <c:if test="${sessionScope.user == null}">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" disabled>${language.getValue("main_navi05")}</a>
-                            </li>
-                        </c:if>
-
-                        <c:if test="${sessionScope.user != null}">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">${language.getValue("main_navi05")}</a>
-                            </li>
-                        </c:if>
-                        
 
                         <li class="nav-item">
                             <a class="nav-link" href="fcs?action=get_park_list">${language.getValue("main_navi06")}</a>
                         </li>
+
                     </ul>
                 </div>
+
+                <c:if test="${user != null}">
+                    <form action="fcs?action=cabinet" method="POST">
+                        <button type="submit" class="btn btn-success"style="margin: 0px auto">${language.getValue("main_navi08")}</button>
+                    </form>
+                </c:if>
+
+                <c:if test="${user == null}">
+                    <form action="fcs?action=sign_in" method="POST">
+                        <button type="submit" class="btn btn-error"style="margin: 0px auto">${language.getValue("main_navi08")}</button>
+                    </form>
+                </c:if>
             </div>
         </nav>
     </header>
