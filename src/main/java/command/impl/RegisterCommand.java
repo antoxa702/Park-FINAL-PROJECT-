@@ -39,7 +39,7 @@ public class RegisterCommand implements Command {
 
 			if (userService.registerUser(userFromRegistrationForm)) {
 				request.getSession().setAttribute(USER, userFromRegistrationForm);
-				return PageManager.MAIN_PAGE; //TODO redirect to the cabinet jsp
+				return PageManager.CABINET;
 			}
 		}
 		LOGGER.warn ("WARN : User haven't been registered");

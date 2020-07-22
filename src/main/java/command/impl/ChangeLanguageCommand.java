@@ -46,6 +46,6 @@ public class ChangeLanguageCommand implements Command {
 			}
 		}
 		request.getSession().setAttribute(LANGUAGE_MANAGER, languageManager);
-		return PageManager.THIS; //TODO return rewrite
+		return PageManager.CHANGE_LANGUAGE;
 	}
 }

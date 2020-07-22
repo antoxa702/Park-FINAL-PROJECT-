@@ -11,6 +11,8 @@ public enum LanguageManager {
 
 	INSTANCE;
 	private static final Logger LOGGER = LogManager.getLogger(LanguageManager.class);
+	private static final String BUNDLE_NAME = "text";
+	private static final String LANGUAGE_DEFAULT = "default";
 
 	private ResourceBundle bundle ;
 	private Locale locale;
@@ -31,19 +33,9 @@ public enum LanguageManager {
 		this.locale = locale;
 	}
 
-	private LanguageManager() {
+	LanguageManager() {
 		locale = Locale.getDefault();
-		bundle =  ResourceBundle.getBundle("text", locale);
-	}
-
-	public void changeLanguage(String language){
-		if (!StringUtils.isNullOrEmpty(language)) {
-			locale = new Locale(language);
-		} else {
-			locale = Locale.getDefault();
-			LOGGER.warn("WARN : Locale is null or empty");
-		}
-		bundle = ResourceBundle.getBundle("text", locale);
+		bundle =  ResourceBundle.getBundle(BUNDLE_NAME, locale);
 	}
 
 	public void changeLocale(Locale locale) {
@@ -52,17 +44,15 @@ public enum LanguageManager {
 		} else {
 			LOGGER.warn("WARN : Locale is null");
 			this.locale = Locale.getDefault();
-			System.out.println("setted default locale"); //todo clean
 		}
-		bundle = ResourceBundle.getBundle("text", this.locale);
-		System.out.println("bundle language is [" + bundle.getLocale().getLanguage() + "]");
+		bundle = ResourceBundle.getBundle(BUNDLE_NAME, this.locale);
 	}
 
 	public String getLanguage() {
 		if (!StringUtils.isNullOrEmpty(bundle.getLocale().getLanguage())) {
 			return bundle.getLocale().getLanguage();
 		} else {
-			return "default";
+			return LANGUAGE_DEFAULT;
 		}
 	}
 

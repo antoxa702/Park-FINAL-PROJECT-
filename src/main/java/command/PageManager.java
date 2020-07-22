@@ -10,29 +10,19 @@ public enum PageManager {
 	CABINET("WEB-INF/jsp/cabinet.jsp"),
 	INDEX1("index1.jsp"),
 	TEST("WEB-INF/jsp/test.jsp"),
-	THIS("");
+	CHANGE_LANGUAGE("");
 
 	private String url;
-	private void setUrl(String url) {
+
+	PageManager(String url) {
 		this.url = url;
 	}
-	PageManager(String url) {
+
+	public void setUrl(String url) {
 		this.url = url;
 	}
 
 	public String getUrl() {
 		return url;
 	}
-	/*
-	private String pageUrl;
-	private StringBuilder stringBuilder = new StringBuilder();
-	public String buildUrl(String action){
-		pageUrl = stringBuilder.append("fcs")
-				.append("?")
-				.append(ACTION)
-				.append("=")
-				.append(action).toString();
-		return pageUrl;
-	}
-	*/
 }
