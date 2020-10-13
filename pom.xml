@@ -25,7 +25,7 @@
 		<json.version>20190722</json.version>
 		<bootstrap.version>4.1.1</bootstrap.version>
 			
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<log4j-api.version>2.13.0</log4j-api.version>
 		<log4j-core.version>2.13.0</log4j-core.version>
 		
