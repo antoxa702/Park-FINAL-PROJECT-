@@ -5,7 +5,7 @@
     <p style="margin: 0;">${language.getValue("footer01")}<span style="font-size: large; color: black;">${language.getValue("footer02")}</span>${language.getValue("footer04")}
         <a href="#" style="caret-color: #663333;"><span style="font-size: large;">${language.getValue("footer03")}</span></a></p>
 </div>
-
+<tag:WeatherTag/>
 </div>
 </body>
 </html>

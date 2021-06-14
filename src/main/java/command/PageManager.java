@@ -7,7 +7,7 @@ public enum PageManager {
 	ERROR_PAGE("/WEB-INF/jsp/error.jsp"),
 	SIGN_PAGE("/WEB-INF/jsp/signin.jsp"),
 	REGISTER_PAGE("WEB-INF/jsp/register.jsp"),
-	CABINET("WEB-INF/jsp/cabinet.jsp"),
+	CABINET("WEB-INF/jsp/test123456789.jsp"),
 	INDEX1("index1.jsp"),
 	TEST("WEB-INF/jsp/test.jsp"),
 	CHANGE_LANGUAGE("");

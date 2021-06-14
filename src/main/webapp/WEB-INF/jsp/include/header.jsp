@@ -2,6 +2,7 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tag" uri="/WEB-INF/tld/WeatherTagDescriptor.tld" %>
 
 <!DOCTYPE html>
 <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">

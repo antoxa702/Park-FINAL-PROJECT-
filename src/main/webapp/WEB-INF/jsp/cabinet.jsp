@@ -63,8 +63,8 @@
 
 </c:if>
 
-<c:if test="${sessionScope.user.getUserType().getNameType().equals(\"owner\")}">
-    <h3>My Applications (${sessionScope.user.getUserType().getNameType()}) </h3>
+<c:if test="${user.getUserType().getNameType().equals(\"owner\")}">
+    <h3>My Applications (${user.getUserType().getNameType()}) </h3>
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <ul class="navbar-nav">
             <li class="nav-item active">
